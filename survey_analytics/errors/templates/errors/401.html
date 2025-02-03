@@ -1,0 +1,18 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/errors.css' %}">
+{% endblock %}
+{% block content %}
+
+<main class="error-container">
+    <div class="error-image">
+        <img src="{% static 'images/cat401.png' %}" alt="Error while loading the image">
+    </div>
+    <div class="error-text">
+        <h1>Error 401 &nbsp;</h1>
+        <h2>You must log in before <br>you can use the service.</h2><br>
+        <p>If you do not have an account, you can always <a href="#">sign up</a>.</p>
+    </div>
+</main>
+{% endblock %}

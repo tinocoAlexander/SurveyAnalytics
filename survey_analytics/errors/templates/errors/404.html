@@ -1,0 +1,18 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/errors.css' %}">
+{% endblock %}
+{% block content %}
+
+<main class="error-container">
+    <div class="error-image">
+        <img src="{% static 'images/cat404.png' %}" alt="Error while loading the image">
+    </div>
+    <div class="error-text">
+        <h1>Error 404 &nbsp;</h1>
+        <h2>The page was not founded <br>or it is not available.</h2><br>
+        <p>Go to any other page that could be available.</p>
+    </div>
+</main>
+{% endblock %}

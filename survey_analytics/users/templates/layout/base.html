@@ -1,4 +1,4 @@
-{% load static %} <!--Cada que quieras hacer algo con el static lo vas a tener que importar-->
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
     <script src="{% static 'js/load.js' %}" defer></script>
+    <script src="{% static 'js/sidebar.js' %}" defer></script>
+    {% block extra_css %}{% endblock %}
 </head>
 <body>
 
@@ -19,16 +21,33 @@
     <header class="header">
         <nav class="navbar">
             <a href="{% url 'users:index' %}" class="logo">SurveyAnalytics</a>
+
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+
             <ul class="nav-links">
                 <li><a href="{% url 'users:index' %}">Home</a></li>
-                <li><a href="{% url 'analysis:analysisSurveys' %}">New<br>Surveys</a></li>
-                <li><a href="{% url 'analysis:administrateSurveys' %}">Last<br>Surveys</a></li>
+                <li><a href="{% url 'analysis:analysisSurveys' %}">New Surveys</a></li>
+                <li><a href="{% url 'analysis:administrateSurveys' %}">Last Surveys</a></li>
             </ul>
-            <button class="nav-button">Sign in</button>
+
+            <a href="{% url 'users:index' %}" class="nav-button">Log in</a>
         </nav>
     </header>
+
+    <div id="sidebar" class="sidebar">
+        <button class="close-btn" onclick="toggleMenu()">X</button>
+        <h2 class="sidebar-title">Menú de opciones</h2>
+        <ul>
+            <li><a href="{% url 'users:index' %}">Home</a></li>
+            <li><a href="{% url 'analysis:analysisSurveys' %}">New Surveys</a></li>
+            <li><a href="{% url 'analysis:administrateSurveys' %}">Last Surveys</a></li>
+            <li><a href="{% url 'users:index' %}" class="sidebar-login">Log in</a></li>
+        </ul>
+    </div>
+
     <main class="body">
         {% block content %} {% endblock %}
     </main>
+
 </body>
 </html>

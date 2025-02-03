@@ -13,9 +13,9 @@
         <nav class="navbar">
             <div class="logo">SurveyAnalytics</div>
             <ul class="nav-links">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">New<br>Surveys</a></li>
-                <li><a href="#">Last<br>Surveys</a></li>
+                <li><a href="{% url 'users:index' %}">Home</a></li>
+                <li><a href="{% url 'analysis:analysisSurveys' %}">New<br>Surveys</a></li>
+                <li><a href="{% url 'analysis:administrateSurveys' %}">Last<br>Surveys</a></li>
             </ul>
             <button class="nav-button">Sign in</button>
         </nav>

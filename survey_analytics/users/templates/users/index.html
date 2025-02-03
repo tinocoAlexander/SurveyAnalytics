@@ -1,0 +1,13 @@
+{% extends '../layout/base.html' %} <!--Aqui traes tu layout del header-->
+{% load static %} <!--Cada que quieras hacer algo con el static lo vas a tener que importar-->
+{% block content %}
+<section class="hero">
+    <div class="hero-content">
+        <h1 class="hero-title">&ensp; Transform your survey <br> data into actionable <br>insights</h1>
+        <p class="hero-text">With SurveyAnalytics, streamline your survey analysis <br>process. Forget about complex tools.<br>
+            Our platform simplifies everything, from data uploads to <br>detailed analysis. Gain insights that help you make better <br>decisions in real-time.</p>
+        <a href="{% url 'analysis:analysisSurveys' %}" class="btn-primary">Get Started ↗</a>
+    </div>
+</section>
+<img src="{% static 'images/homepageImage.png' %}" alt="Error while loading the image" id="hero-img">
+{% endblock %}

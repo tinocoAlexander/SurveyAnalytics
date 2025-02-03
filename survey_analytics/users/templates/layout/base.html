@@ -1,0 +1,34 @@
+{% load static %} <!--Cada que quieras hacer algo con el static lo vas a tener que importar-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ title }}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+    <script src="{% static 'js/load.js' %}" defer></script>
+</head>
+<body>
+
+    <div id="loading-screen">
+        <div class="loader"></div>
+        <p>Loading...</p>
+    </div>
+
+    <header class="header">
+        <nav class="navbar">
+            <a href="{% url 'users:index' %}" class="logo">SurveyAnalytics</a>
+            <ul class="nav-links">
+                <li><a href="{% url 'users:index' %}">Home</a></li>
+                <li><a href="{% url 'analysis:analysisSurveys' %}">New<br>Surveys</a></li>
+                <li><a href="{% url 'analysis:administrateSurveys' %}">Last<br>Surveys</a></li>
+            </ul>
+            <button class="nav-button">Sign in</button>
+        </nav>
+    </header>
+    <main class="body">
+        {% block content %} {% endblock %}
+    </main>
+</body>
+</html>

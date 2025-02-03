@@ -1,0 +1,27 @@
+{% load static %} <!--Cada que quieras hacer algo con el static lo vas a tener que importar-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ title }}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="logo">SurveyAnalytics</div>
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">New<br>Surveys</a></li>
+                <li><a href="#">Last<br>Surveys</a></li>
+            </ul>
+            <button class="nav-button">Sign in</button>
+        </nav>
+    </header>
+    <main class="body">
+        {% block content %} {% endblock %}
+    </main>
+</body>
+</html>

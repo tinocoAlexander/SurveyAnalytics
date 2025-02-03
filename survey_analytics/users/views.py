@@ -1,3 +1,5 @@
 from django.shortcuts import render
 
-# Create your views here.
+def index(request):
+    title = "Homepage"
+    return render(request, 'users/index.html', {'title': title})

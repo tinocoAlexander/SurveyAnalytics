@@ -1,0 +1,88 @@
+/*Importaciones de fuentes de google fonts
+1. Poppins   font-family: "Poppins", serif;
+2. Roboto Mono   font-family: "Roboto Mono", serif;
+3. Inter:   font-family: "Inter", serif;
+*/
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+.error-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    padding: 4rem;
+    gap: 2rem;
+}
+
+.error-image img {
+    width: 400px;
+    height: auto;
+}
+
+.error-text {
+    text-align: left;
+    font-size: 1.125rem;
+}
+
+.error-text h1 {
+    font-family: "Inter", serif;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    text-decoration: underline;
+}
+
+.error-text h2 {
+    font-family: "Roboto Mono", serif;
+    font-size: 48px;
+    margin-bottom: 0;
+}
+
+.error-text p {
+    font-family: "Inter", serif;
+    margin-top: 0;
+    line-height: 1.5;
+    font-size: 20px;
+}
+
+.error-text a {
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.error-text a:hover {
+    text-decoration: underline;
+}
+
+@media screen and (max-width: 768px) {
+    .error-container {
+        flex-direction: column;
+        text-align: center;
+        padding: 2rem;
+    }
+
+    .error-image img {
+        width: 100%;
+        max-width: 300px;
+        margin-bottom: 1rem;
+    }
+
+    .error-text {
+        text-align: center;
+        font-size: 1rem;
+    }
+
+    .error-text h1 {
+        font-size: 1.5rem;
+    }
+
+    .error-text h2 {
+        font-size: 36px;
+    }
+
+    .error-text p {
+        font-size: 18px;
+    }
+}

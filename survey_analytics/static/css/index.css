@@ -4,39 +4,38 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    padding: 50px;
-    gap: 50px;
+    padding: 3.125rem;
+    gap: 3.125rem;
     float: left;
 }
 
-
 .hero h1 {
     font-family: "Roboto Mono", serif;
-    font-size: 48px;
+    font-size: 3rem;
     margin-bottom: 0;
 }
 
 .hero p {
     font-family: "Inter", serif;
-    font-size: 20px;
-    margin-bottom: 30px;
-    margin-left: 30px;
+    font-size: 1.25rem;
+    margin-bottom: 1.875rem;
+    margin-left: 1.875rem;
 }
 
 .btn-primary {
     font-family: "Roboto Mono", serif;
-    font-size: 20px;
+    font-size: 1.25rem;
     background-color: #ffffff;
     color: black;
     text-decoration: none;
-    border-radius: 20px;
-    padding: 15px;
-    width: 170px;
-    border: 1px solid black;
+    border-radius: 1.25rem;
+    padding: 0.9375rem;
+    width: 10.625rem;
+    border: 0.0625rem solid black;
     cursor: pointer;
     transition: background-color 0.5s, color 0.5s;
     display: inline-block;
-    margin-left: 30px;
+    margin-left: 1.875rem;
 }
 
 .btn-primary:hover {
@@ -47,8 +46,8 @@
 #hero-img {
     width: 50%;
     float: right;
-    max-width: 650px;
-    margin-right: 250px;
+    max-width: 40.625rem;
+    margin-right: 15.625rem;
 }
 
 /* Responsividad */
@@ -56,7 +55,7 @@
     .hero {
         flex-direction: column;
         text-align: center;
-        padding: 30px;
+        padding: 1.875rem;
     }
 
     .hero-content {
@@ -65,50 +64,49 @@
 
     #hero-img {
         width: 80%;
-        max-width: 500px;
-
+        max-width: 31.25rem;
     }
 }
 
 @media screen and (max-width: 768px) {
     .hero h1 {
-        font-size: 36px;
+        font-size: 2.25rem;
     }
 
     .hero p {
-        font-size: 18px;
+        font-size: 1.125rem;
     }
 
     .btn-primary {
-        font-size: 18px;
-        padding: 12px;
-        width: 140px;
+        font-size: 1.125rem;
+        padding: 0.75rem;
+        width: 8.75rem;
     }
+
     #hero-img {
         width: 80%;
-        max-width: 500px;
+        max-width: 31.25rem;
         margin: 0 auto;
-
     }
 }
 
 @media screen and (max-width: 480px) {
     .hero {
-        padding: 20px;
+        padding: 1.25rem;
     }
 
     .hero h1 {
-        font-size: 28px;
+        font-size: 1.75rem;
     }
 
     .hero p {
-        font-size: 16px;
+        font-size: 1rem;
     }
 
     .btn-primary {
-        font-size: 16px;
-        padding: 10px;
-        width: 130px;
+        font-size: 1rem;
+        padding: 0.625rem;
+        width: 8.125rem;
     }
 
     #hero-img {

@@ -1,13 +1,20 @@
-.icons{
+.icons {
     width: 20px;
 }
 
-.upload-icon{
+.upload-icon {
     width: 40px;
 }
 
-.cancel-icon{
+.cancel-icon {
     width: 40px;
+    transition: all 0.3s;
+}
+
+.cancel-icon:hover{
+    stroke: red;
+    outline-color: red;
+    fill: red;
 }
 
 .form-container {
@@ -46,7 +53,6 @@
     display: block;
 }
 
-/* Inputs */
 .form-input {
     width: 100%;
     padding: 0.75rem;
@@ -67,7 +73,7 @@
     transition: all 0.3s;
 }
 
-.file-dropzone:hover{
+.file-dropzone:hover {
     background-color: #f0e7f0;
 }
 
@@ -77,9 +83,14 @@
 }
 
 .file-dropzone .file-choose {
-    color: #007bff;
+    color: black;
     text-decoration: underline;
     cursor: pointer;
+    transition: all 0.3s;
+}
+
+.file-choose:hover{
+    color: #007bff;
 }
 
 .uploaded-files {
@@ -130,6 +141,7 @@
 
 .btn-cancel:hover {
     background-color: #dd3030;
+    color: #fff;
 }
 
 .btn-confirm {
@@ -144,4 +156,75 @@
 
 .btn-confirm:hover {
     background-color: #2964b1;
+    color: #fff;
+}
+
+
+@media screen and (max-width: 1024px) {
+    .survey-form {
+        width: 70%;
+    }
+
+    .form-title {
+        font-size: 1.3rem;
+    }
+
+    .form-description {
+        font-size: 0.95rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .survey-form {
+        width: 90%;
+    }
+
+    .form-title {
+        font-size: 1.2rem;
+    }
+
+    .form-description {
+        font-size: 0.9rem;
+    }
+
+    .file-dropzone {
+        padding: 1.5rem;
+    }
+
+    .form-actions {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .btn-cancel,
+    .btn-confirm {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .survey-form {
+        padding: 1.5rem;
+    }
+
+    .form-title {
+        font-size: 1rem;
+    }
+
+    .form-description {
+        font-size: 0.8rem;
+    }
+
+    .file-dropzone {
+        padding: 1rem;
+    }
+
+    .form-actions {
+        gap: 0.25rem;
+    }
+
+    .btn-cancel,
+    .btn-confirm {
+        font-size: 0.9rem;
+    }
 }

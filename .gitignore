@@ -2,7 +2,9 @@
 __pycache__/
 *.py[cod]
 *$py.class
-
+.idea/ # Archivos de IDE Jetbrains
+idea/
+env/ # Archivos de environment para instalar librerias
 # C extensions
 *.so
 
@@ -169,3 +171,5 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+.idea/

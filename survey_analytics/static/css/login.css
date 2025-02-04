@@ -1,0 +1,224 @@
+/* Importaciones de fuentes de google fonts
+1. Poppins   font-family: "Poppins", serif;
+2. Roboto Mono   font-family: "Roboto Mono", serif;
+3. Inter:   font-family: "Inter", serif;
+*/
+
+.icons {
+    width: 1.875rem; /* 30px */
+}
+
+.eyeIcon {
+    width: 1.5625rem; /* 25px */
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    background-color: #f9f9f9;
+}
+
+.login-card {
+    display: flex;
+    width: 60%;
+    background-color: #fff;
+    border-radius: 1.25rem; /* 20px */
+    box-shadow: 0 0.125rem 0.625rem rgba(0, 0, 0, 0.1); /* 0 2px 10px */
+    overflow: hidden;
+}
+
+.login-image {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #F2F2F2;
+    padding: 2rem;
+}
+
+.login-image img {
+    width: 80%;
+    height: auto;
+}
+
+.login-form {
+    width: 60%;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: "Roboto Mono", sans-serif;
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+h1 {
+    font-family: "Poppins", sans-serif;
+    font-size: 1.8rem; /* 28.8px */
+    margin-bottom: 0.5rem;
+}
+
+p {
+    color: #666;
+    font-size: 1rem; /* 16px */
+    margin: 0;
+}
+
+form {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+}
+
+.form-input {
+    width: 90%;
+    padding: 0.75rem; /* 12px */
+    padding-right: 2.5rem; /* 40px */
+    border: none;
+    border-bottom: 1px solid #000000;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    font-family: "Roboto Mono", sans-serif;
+    font-weight: bolder;
+    color: black;
+}
+
+.password-container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 0.625rem; /* 10px */
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    width: 1.25rem; /* 20px */
+    height: auto;
+    color: #666;
+}
+
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.form-options a {
+    color: #838383;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.form-options a:hover {
+    color: #007bff;
+}
+
+.btn-login {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 0.625rem; /* 10px */
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-login:hover {
+    background-color: #444;
+}
+
+.form-footer {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.form-footer a {
+    color: #838383;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.form-footer a:hover {
+    color: #007bff;
+}
+
+
+@media screen and (max-width: 768px) {
+    .login-card {
+        flex-direction: column;
+        width: 90%;
+    }
+
+    .login-image {
+        width: 100%;
+    }
+
+    .login-form {
+        width: 100%;
+        padding: 1.5rem;
+    }
+
+    .form-input {
+        font-size: 0.9rem;
+        padding: 0.625rem;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .btn-login {
+        padding: 0.625rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Smartphones */
+@media screen and (max-width: 480px) {
+    .login-container {
+        padding: 1rem;
+    }
+
+    .login-card {
+        width: 100%;
+        box-shadow: none;
+    }
+
+    .form-header {
+        margin-bottom: 1rem;
+    }
+
+    .form-input {
+        padding: 0.5rem;
+        font-size: 0.875rem;
+    }
+
+    .btn-login {
+        font-size: 0.8rem;
+        padding: 0.5rem;
+    }
+
+    h1 {
+        font-size: 1.25rem;
+    }
+
+    .password-toggle {
+        right: 0.5rem;
+    }
+}

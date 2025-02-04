@@ -10,6 +10,7 @@
     <script src="{% static 'js/load.js' %}" defer></script>
     <script src="{% static 'js/sidebar.js' %}" defer></script>
     {% block extra_css %}{% endblock %}
+    {% block extra_js %}{% endblock %}
 </head>
 <body>
 
@@ -30,7 +31,7 @@
                 <li><a href="{% url 'analysis:administrateSurveys' %}">Last Surveys</a></li>
             </ul>
 
-            <a href="{% url 'users:index' %}" class="nav-button">Log in</a>
+            <a href="{% url 'users:login' %}" class="nav-button">Log in</a>
         </nav>
     </header>
 
@@ -41,7 +42,7 @@
             <li><a href="{% url 'users:index' %}">Home</a></li>
             <li><a href="{% url 'analysis:analysisSurveys' %}">New Surveys</a></li>
             <li><a href="{% url 'analysis:administrateSurveys' %}">Last Surveys</a></li>
-            <li><a href="{% url 'users:index' %}" class="sidebar-login">Log in</a></li>
+            <li><a href="{% url 'users:login' %}" class="sidebar-login">Log in</a></li>
         </ul>
     </div>
 

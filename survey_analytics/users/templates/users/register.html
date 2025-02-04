@@ -1,2 +1,53 @@
 {% extends '../layout/base.html' %}
 {% load static %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
+{% block extra_js %}
+    <script>
+        const eyeOpenIcon = "{% static 'images/icons/eyeOpenIcon.svg' %}";
+        const eyeClosedIcon = "{% static 'images/icons/eyeClosedIcon.svg' %}";
+    </script>
+    <script src="{% static 'js/togglePasswordVisibility.js' %}"></script>
+{% endblock %}
+{% block content %}
+<main class="login-container">
+    <div class="login-card">
+        <div class="login-image">
+            <img src="{% static 'images/catRegister.png' %}" alt="Error while loading the image" class="CatImage">
+        </div>
+        <div class="login-form">
+            <div class="form-header">
+                <img src="{% static 'images/icons/userIcon.svg' %}" alt="Error while loading the image" class="icons">
+                <h1>Welcome here!</h1>
+                <p>Please create your new account</p>
+            </div>
+            <form>
+                <input type="text" id="name" class="form-input" placeholder="Enter your name">
+                <input type="email" id="email" class="form-input" placeholder="Enter your email">
+
+                <div class="password-container">
+                    <input type="password" id="password" class="form-input" placeholder="Enter your password">
+                    <img
+                        src="{% static 'images/icons/eyeClosedIcon.svg' %}"
+                        alt="Error while loading the image"
+                        id="toggle-password"
+                        class="password-toggle"
+                        onclick="togglePasswordVisibility()">
+                </div>
+
+                <div class="form-options">
+                    <label>
+                        <input type="checkbox"> Remember me
+                    </label>
+                </div>
+
+                <button type="submit" class="btn-login">Log in</button>
+            </form>
+            <div class="form-footer">
+                <p>Do you have an account already? <br> <a href="{% url 'users:login' %}">Log in</a></p>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

@@ -26,9 +26,14 @@
             <button class="menu-toggle" onclick="toggleMenu()">☰</button>
 
             <ul class="nav-links">
-                <li><a href="{% url 'users:index' %}">Home</a></li>
-                <li><a href="{% url 'analysis:analysisSurveys' %}">New Surveys</a></li>
-                <li><a href="{% url 'analysis:lastSurveys' %}">Last Surveys</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'users:index' %}">Home</a></li>
+                    <li><a href="{% url 'analysis:analysisSurveys' %}">New Surveys</a></li>
+                    <li><a href="{% url 'analysis:lastSurveys' %}">Last Surveys</a></li>
+                {% else %}
+                    <li><a href="{% url 'users:index' %}">Home</a></li>
+                {% endif %}
+
             </ul>
 
             {% if user.is_authenticated %}
@@ -43,9 +48,13 @@
         <button class="close-btn" onclick="toggleMenu()">X</button>
         <h2 class="sidebar-title">Menú de opciones</h2>
         <ul>
-            <li><a href="{% url 'users:index' %}">Home</a></li>
-            <li><a href="{% url 'analysis:analysisSurveys' %}">New Surveys</a></li>
-            <li><a href="{% url 'analysis:lastSurveys' %}">Last Surveys</a></li>
+            {% if user.is_authenticated %}
+                    <li><a href="{% url 'users:index' %}">Home</a></li>
+                    <li><a href="{% url 'analysis:analysisSurveys' %}">New Surveys</a></li>
+                    <li><a href="{% url 'analysis:lastSurveys' %}">Last Surveys</a></li>
+                {% else %}
+                    <li><a href="{% url 'users:index' %}">Home</a></li>
+                {% endif %}
             {% if user.is_authenticated %}
                 <li><a href="{% url 'users:logout' %}" class="sidebar-login">Log out</a></li>
             {% else %}

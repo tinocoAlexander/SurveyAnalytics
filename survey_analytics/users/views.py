@@ -3,12 +3,12 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth import login as auth_login
 from .forms import UserRegisterForm, AuthenticationForm
-
+from .decorators import anonymous_required
 def index(request):
     title = "Homepage"
     return render(request, 'users/index.html', {'title': title})
 
-
+@anonymous_required(redirect_url='errors:error_401')
 def login(request):
     title = "Login"
     if request.method == "POST":
@@ -21,6 +21,8 @@ def login(request):
 
     return render(request, 'users/login.html', {'title': title, 'form': form})
 
+
+@anonymous_required(redirect_url='errors:error_401')
 def register(request):
     title = "Register"
     if request.method == 'POST':

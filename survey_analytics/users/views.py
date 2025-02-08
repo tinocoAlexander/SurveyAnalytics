@@ -6,6 +6,7 @@ from .decorators import anonymous_required
 from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
 from django.template.loader import render_to_string
+from django.utils import timezone
 def index(request):
     title = "Homepage"
     return render(request, 'users/index.html', {'title': title})
@@ -23,13 +24,17 @@ def login(request):
             else:
                 request.session.set_expiry(0)
 
-            # Enviar correo de inicio de sesión
-            subject = 'Inicio de Sesión Exitoso'
+            context = {
+                'user': user,
+                'login_datetime': timezone.now().strftime("%d/%m/%Y %H:%M:%S"),
+                'device_info': request.META.get('HTTP_USER_AGENT', 'Desconocido')
+            }
+
+            html_content = render_to_string('emails/login_email.html', context)
+            subject = 'Alerta: Inicio de Sesión Reciente'
             from_email = settings.DEFAULT_FROM_EMAIL
             to_email = [user.email]
-            context = {'user': user}
-            # Renderizamos la plantilla HTML del correo
-            html_content = render_to_string('emails/login_email.html', context)
+
             msg = EmailMultiAlternatives(subject, '', from_email, to_email)
             msg.attach_alternative(html_content, "text/html")
             msg.send()
@@ -47,13 +52,15 @@ def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
         if form.is_valid():
-            form.save()
-            # Enviar correo de registro
+            user = form.save()
+            context = {
+                'user': user,
+                'register_datetime': timezone.now().strftime("%d/%m/%Y %H:%M:%S"),
+            }
+            html_content = render_to_string('emails/register_email.html', context)
             subject = 'Bienvenido a Nuestra App'
             from_email = settings.DEFAULT_FROM_EMAIL
             to_email = [user.email]
-            context = {'user': user}
-            html_content = render_to_string('users/emails/register_email.html', context)
             msg = EmailMultiAlternatives(subject, '', from_email, to_email)
             msg.attach_alternative(html_content, "text/html")
             msg.send()

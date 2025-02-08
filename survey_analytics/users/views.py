@@ -1,4 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth import logout as auth_logout
+
 
 def index(request):
     title = "Homepage"
@@ -11,3 +13,7 @@ def login(request):
 def register(request):
     title = "Register"
     return render(request, 'users/register.html', {'title': title})
+
+def logout(request):
+    auth_logout(request)
+    return redirect('users:index')

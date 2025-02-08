@@ -15,6 +15,11 @@ def login(request):
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
             auth_login(request, form.get_user())
+            if 'remember_me' in request.POST:
+                request.session.set_expiry(1209600)
+            else:
+                request.session.set_expiry(0)
+
             return redirect('users:index')
     else:
         form = AuthenticationForm(request)

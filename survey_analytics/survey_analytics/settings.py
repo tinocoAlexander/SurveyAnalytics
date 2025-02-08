@@ -30,6 +30,9 @@ ALLOWED_HOSTS = [
     '*'
 ]
 
+# Configuraciones de sesiones
+SESSION_SAVE_EVERY_REQUEST = True
+
 
 # Application definition
 

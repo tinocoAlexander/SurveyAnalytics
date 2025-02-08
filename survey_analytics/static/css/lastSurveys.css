@@ -1,0 +1,307 @@
+body {
+    margin-left: 3.125rem;
+    margin-right: 3.125rem;
+}
+
+
+
+.title {
+    font-family: "Poppins", sans-serif;
+    font-size: 2.5rem;
+}
+
+.subtitle {
+    margin-top: -1.875rem;
+    font-family: "Roboto Mono", sans-serif;
+    font-size: 1.2rem;
+    color: black;
+    margin-bottom: 1.5rem;
+}
+
+.recent-surveys {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.survey-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 0.0625rem solid black;
+    border-radius: 0.625rem;
+    background-color: #fff;
+    width: 21.875rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.survey-card:hover {
+    background-color: #f2f6e9;
+    padding: 0.125rem;
+    cursor: pointer;
+    border: 0.125rem solid #f04c15;
+}
+
+.survey-info {
+    display: flex;
+    align-items: center;
+    gap: 0.3125rem;
+}
+
+.survey-info img {
+    margin-left: 0.3125rem;
+    width: 2.5rem;
+}
+
+.survey-name {
+    margin-bottom: 0;
+    font-size: 1rem;
+}
+
+.survey-size {
+    margin-top: -0.125rem;
+    font-size: 0.8rem;
+    color: #999;
+}
+
+.options-icon {
+    margin-left: 0.625rem;
+    width: 1.25rem;
+    cursor: pointer;
+    opacity: 50%;
+    transition: all 0.3s ease;
+}
+
+.all-surveys-title {
+    font-family: "Roboto Mono", sans-serif;
+    font-size: 1.5rem;
+    color: black;
+    margin-bottom: 0.5rem;
+}
+
+.search-container {
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.search-input {
+    width: 18.75rem;
+    padding: 0.5rem;
+    border: 0.0625rem solid #ccc;
+    border-radius: 0.625rem;
+    font-family: "Roboto Mono", sans-serif;
+    font-size: 1rem;
+}
+
+#checkbox {
+    transform: scale(2);
+    cursor: pointer;
+    margin-right: 0.9375rem;
+}
+
+.documentIcon {
+    width: 3.125rem;
+}
+
+.surveys-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2rem;
+}
+
+.surveys-table thead {
+    background-color: #f4f4f4;
+    font-weight: lighter;
+}
+
+.surveys-table th, .surveys-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 0.0625rem solid #ddd;
+    font-family: "Poppins", sans-serif;
+    font-size: 1rem;
+    color: black;
+}
+
+.file-info {
+    display: flex;
+    align-items: center;
+    gap: 0.3125rem;
+}
+
+.file-info img {
+    width: 2.1875rem;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 0.3125rem;
+}
+
+.user-avatar {
+    width: 1.875rem;
+    height: 1.875rem;
+    border-radius: 50%;
+}
+
+.user-name {
+    color: black;
+    margin-bottom: 0;
+}
+
+.user-email {
+    font-size: 0.9rem;
+    color: black;
+    margin-top: 0;
+    opacity: 50%;
+}
+
+.last-modified {
+    font-size: 0.9rem;
+    color: black;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1.875rem;
+}
+
+.pagination-btn {
+    background-color: #fff;
+    border: 0.0625rem solid #ccc;
+    border-radius: 0.625rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.pagination-btn:hover {
+    background-color: #f0f0f0;
+}
+
+/* Large tablets and smaller screens (max-width: 1024px) */
+@media screen and (max-width: 64rem) {
+    .recent-surveys {
+        flex-direction: column;
+    }
+
+    .survey-card {
+        width: 90%;
+    }
+
+    .search-container {
+        justify-content: center;
+    }
+
+    .search-input {
+        width: 80%;
+    }
+
+    .surveys-table th, .surveys-table td {
+        font-size: 0.9rem;
+    }
+}
+
+/* Small tablets and phones (max-width: 768px) */
+@media screen and (max-width: 48rem) {
+    body {
+        margin-left: 1.25rem;
+        margin-right: 1.25rem;
+    }
+
+    .survey-card {
+        width: 100%;
+    }
+
+    .search-input {
+        width: 100%;
+    }
+
+    .user-avatar {
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+
+    .pagination-btn {
+        font-size: 0.9rem;
+    }
+}
+
+/* Mobile phones (max-width: 480px) */
+@media screen and (max-width: 30rem) {
+    .title {
+        font-size: 2rem;
+        text-align: center;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+        text-align: center;
+    }
+
+    .search-input {
+        width: 100%;
+        font-size: 0.9rem;
+    }
+
+    .pagination-btn {
+        padding: 0.5rem;
+        font-size: 0.8rem;
+    }
+
+    .surveys-table {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .surveys-table thead {
+        display: none;
+    }
+
+    .surveys-table tr {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 90%;
+        margin: 1rem auto;
+        border: 1px solid #ddd;
+        border-radius: 0.625rem;
+        padding: 1rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        background: white;
+    }
+
+    .surveys-table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.9rem;
+        padding: 0.5rem 0;
+        width: 100%;
+    }
+
+    .surveys-table td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        margin-right: 0.5rem;
+        color: #333;
+    }
+
+    .file-info img {
+        width: 2rem;
+    }
+
+    .user-avatar {
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+}

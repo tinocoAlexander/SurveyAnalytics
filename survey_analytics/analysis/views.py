@@ -6,6 +6,6 @@ def analysisSurveys(request):
     title = "Analysis Surveys"
     return render(request, 'analysis/analysisSurveys.html', {'title': title})
 
-def administrateSurveys(request):
-    title = "Administrate Surveys"
-    return render(request, 'analysis/administrateSurveys.html', {'title': title})
+def lastSurveys(request):
+    title = "Last Surveys"
+    return render(request, 'analysis/lastSurveys.html', {'title': title})

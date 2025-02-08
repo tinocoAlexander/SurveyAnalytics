@@ -1,0 +1,18 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/errors.css' %}">
+{% endblock %}
+{% block content %}
+
+<main class="error-container">
+    <div class="error-image">
+        <img src="{% static 'images/cat400.png' %}" alt="Error while loading the image">
+    </div>
+    <div class="error-text">
+        <h1>Error 400 &nbsp;</h1>
+        <h2>You shouldn't be here <br>please leave this page.</h2><br>
+        <p>Go to any other page that could be available.</p>
+    </div>
+</main>
+{% endblock %}

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout as auth_logout
-
+from .forms import UserRegisterForm
 
 def index(request):
     title = "Homepage"
@@ -12,8 +12,14 @@ def login(request):
 
 def register(request):
     title = "Register"
-    return render(request, 'users/register.html', {'title': title})
-
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('users:login')
+    else:
+        form = UserRegisterForm()
+    return render(request, 'users/register.html', {'title':title, 'form': form})
 def logout(request):
     auth_logout(request)
     return redirect('users:index')

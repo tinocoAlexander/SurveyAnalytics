@@ -9,56 +9,22 @@
     <p class="subtitle">Recently modified</p>
 
     <div class="recent-surveys">
+        {% for survey in recent_surveys %}
         <div class="survey-card">
             <div class="survey-info">
                 <img src="{% static 'images/icons/documentIcon.svg' %}" alt="Document icon">
                 <div class="survey-details">
-                    <p class="survey-name">Food preferences</p>
-                    <p class="survey-size">10 mb</p>
+                    <p class="survey-name">{{ survey.name }}</p>
+                    <p class="survey-size">
+                        {{ survey.total_size_mb|floatformat:1 }} mb
+                    </p>
                 </div>
             </div>
             <img src="{% static 'images/icons/optionsIcon.svg' %}" alt="Options icon" class="options-icon">
         </div>
-        <div class="survey-card">
-            <div class="survey-info">
-                <img src="{% static 'images/icons/documentIcon.svg' %}" alt="Document icon">
-                <div class="survey-details">
-                    <p class="survey-name">Food preferences</p>
-                    <p class="survey-size">10 mb</p>
-                </div>
-            </div>
-            <img src="{% static 'images/icons/optionsIcon.svg' %}" alt="Options icon" class="options-icon">
-        </div>
-        <div class="survey-card">
-            <div class="survey-info">
-                <img src="{% static 'images/icons/documentIcon.svg' %}" alt="Document icon">
-                <div class="survey-details">
-                    <p class="survey-name">Food preferences</p>
-                    <p class="survey-size">10 mb</p>
-                </div>
-            </div>
-            <img src="{% static 'images/icons/optionsIcon.svg' %}" alt="Options icon" class="options-icon">
-        </div>
-        <div class="survey-card">
-            <div class="survey-info">
-                <img src="{% static 'images/icons/documentIcon.svg' %}" alt="Document icon">
-                <div class="survey-details">
-                    <p class="survey-name">Food preferences</p>
-                    <p class="survey-size">10 mb</p>
-                </div>
-            </div>
-            <img src="{% static 'images/icons/optionsIcon.svg' %}" alt="Options icon" class="options-icon">
-        </div>
-        <div class="survey-card">
-            <div class="survey-info">
-                <img src="{% static 'images/icons/documentIcon.svg' %}" alt="Document icon">
-                <div class="survey-details">
-                    <p class="survey-name">Food preferences</p>
-                    <p class="survey-size">10 mb</p>
-                </div>
-            </div>
-            <img src="{% static 'images/icons/optionsIcon.svg' %}" alt="Options icon" class="options-icon">
-        </div>
+        {% empty %}
+            <p>No recent surveys available.</p>
+        {% endfor %}
     </div>
 
     <h2 class="all-surveys-title">All surveys</h2>
@@ -77,14 +43,15 @@
             </tr>
         </thead>
         <tbody>
+            {% for survey in all_surveys %}
             <tr>
                 <td>
                     <div class="file-info">
-                        <input type="checkbox" id="checkbox1">
+                        <input type="checkbox" id="checkbox{{ forloop.counter }}">
                         <img src="{% static 'images/icons/documentIcon.svg' %}" alt="Document icon" class="options-icon">
                         <div>
-                            <p class="survey-name">Food preferences</p>
-                            <p class="survey-size">10 mb</p>
+                            <p class="survey-name">{{ survey.name }}</p>
+                            <p class="survey-size">{{ survey.total_size_mb|floatformat:1 }} mb</p>
                         </div>
                     </div>
                 </td>
@@ -92,72 +59,29 @@
                     <div class="user-info">
                         <img src="{% static 'images/icons/userIcon.svg' %}" alt="User avatar" class="user-avatar">
                         <div>
-                            <p class="user-name">Tinoco Sanchez Alexander</p>
-                            <p class="user-email">alexnuevo040@gmail.com</p>
+                            <p class="user-name">{{ survey.user.get_full_name }}</p>
+                            <p class="user-email">{{ survey.user.email }}</p>
                         </div>
                     </div>
                 </td>
                 <td>
-                    <p class="last-modified">February 5th, 2025</p>
+                    <p class="last-modified">
+                        {% if survey.last_modified %}
+                            {{ survey.last_modified|date:"F jS, Y" }}
+                        {% else %}
+                            Not modified
+                        {% endif %}
+                    </p>
                 </td>
                 <td>
                     <img src="{% static 'images/icons/optionsIcon.svg' %}" alt="Options icon" class="options-icon">
                 </td>
             </tr>
+            {% empty %}
             <tr>
-                <td>
-                    <div class="file-info">
-                        <input type="checkbox" id="checkbox2">
-                        <img src="{% static 'images/icons/documentIcon.svg' %}" alt="Document icon" class="options-icon">
-                        <div>
-                            <p class="survey-name">Food preferences</p>
-                            <p class="survey-size">10 mb</p>
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <div class="user-info">
-                        <img src="{% static 'images/icons/userIcon.svg' %}" alt="User avatar" class="user-avatar">
-                        <div>
-                            <p class="user-name">Tinoco Sanchez Alexander</p>
-                            <p class="user-email">alexnuevo040@gmail.com</p>
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <p class="last-modified">February 5th, 2025</p>
-                </td>
-                <td>
-                    <img src="{% static 'images/icons/optionsIcon.svg' %}" alt="Options icon" class="options-icon">
-                </td>
+                <td colspan="4">No surveys found.</td>
             </tr>
-            <tr>
-                <td>
-                    <div class="file-info">
-                        <input type="checkbox" id="checkbox3">
-                        <img src="{% static 'images/icons/documentIcon.svg' %}" alt="Document icon" class="options-icon">
-                        <div>
-                            <p class="survey-name">Food preferences</p>
-                            <p class="survey-size">10 mb</p>
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <div class="user-info">
-                        <img src="{% static 'images/icons/userIcon.svg' %}" alt="User avatar" class="user-avatar">
-                        <div>
-                            <p class="user-name">Tinoco Sanchez Alexander</p>
-                            <p class="user-email">alexnuevo040@gmail.com</p>
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <p class="last-modified">February 5th, 2025</p>
-                </td>
-                <td>
-                    <img src="{% static 'images/icons/optionsIcon.svg' %}" alt="Options icon" class="options-icon">
-                </td>
-            </tr>
+            {% endfor %}
         </tbody>
     </table>
 

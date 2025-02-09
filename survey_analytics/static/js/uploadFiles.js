@@ -18,8 +18,21 @@ function handleDrop(event) {
 }
 
 function handleFiles(files) {
+    const allowedExtensions = ['csv', 'xls', 'xlsx'];
     for (let i = 0; i < files.length; i++) {
         const file = files[i];
+        const ext = file.name.split('.').pop().toLowerCase();
+
+        if (!allowedExtensions.includes(ext)) {
+            alert(`The file ${file.name} has an unsupported extension. Allowed extensions are: CSV, XLS, XLSX.`);
+            continue;
+        }
+
+        if (uploadedFiles.length >= 1) {
+            alert("You can only upload one file.");
+            continue;
+        }
+
         uploadedFiles.push(file);
         displayFile(file);
     }
@@ -66,6 +79,10 @@ surveyForm.addEventListener('submit', function(event) {
 
     if (uploadedFiles.length === 0) {
         errors.push("You must upload at least one file");
+    }
+
+    if (uploadedFiles.length > 1) {
+        errors.push("You can only upload one file");
     }
 
     if (errors.length > 0) {

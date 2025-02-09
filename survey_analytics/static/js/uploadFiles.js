@@ -54,4 +54,32 @@ function cancelUpload() {
 
 const surveyForm = document.querySelector('.survey-form');
 surveyForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const formData = new FormData(surveyForm);
+
+    for (let i = 0; i < uploadedFiles.length; i++) {
+        formData.append('upload_files', uploadedFiles[i]);
+    }
+
+    fetch(surveyForm.action || window.location.href, {
+        method: 'POST',
+        body: formData,
+        headers: {
+
+        },
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.text();
+    })
+    .then(data => {
+        console.log('Success:', data);
+        window.location.href = cancelUrl
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
 });

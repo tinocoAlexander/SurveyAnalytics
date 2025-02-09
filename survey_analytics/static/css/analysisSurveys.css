@@ -1,3 +1,39 @@
+.django-messages {
+    width: 80%;
+    margin: 1rem auto;
+    font-family: "Roboto Mono", sans-serif;
+    font-size: 1rem;
+}
+
+
+.django-messages .message {
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border-radius: 0.625rem;
+    text-align: center;
+}
+
+
+.django-messages .message.success {
+    background-color: #dff0d8;
+    color: #3c763d;
+}
+
+.django-messages .message.error {
+    background-color: #f2dede;
+    color: #a94442;
+}
+
+.django-messages .message.info {
+    background-color: #d9edf7;
+    color: #31708f;
+}
+
+.django-messages .message.warning {
+    background-color: #fcf8e3;
+    color: #8a6d3b;
+}
+
 .icons {
     width: 20px;
 }
@@ -52,6 +88,14 @@
     margin-top: 1rem;
     margin-bottom: 0.5rem;
     display: block;
+}
+
+.form-message {
+    font-size: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    display: block;
+    color: red;
 }
 
 .form-input {

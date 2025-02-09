@@ -22,6 +22,17 @@
                 <h1>Welcome back!</h1>
                 <p>Please enter your credentials</p>
             </div>
+
+            {% if messages %}
+              <div class="django-messages">
+                {% for message in messages %}
+                  <div class="message {{ message.tags }}">
+                    {{ message }}
+                  </div>
+                {% endfor %}
+              </div>
+            {% endif %}
+
             <form method="post" novalidate>
                 {% csrf_token %}
                 {{ form.non_field_errors }}

@@ -37,17 +37,12 @@ class UserRegisterForm(forms.ModelForm):
 
     def save(self, commit=True):
         user = super().save(commit=False)
-        # Guarda la contraseña de forma cifrada
         user.set_password(self.cleaned_data["password"])
+        user.is_active = False
         if commit:
             user.save()
         return user
 
-
-from django import forms
-from django.contrib.auth import authenticate
-from django.utils.text import capfirst
-from django.utils.translation import gettext_lazy as _
 
 # Formulario para el inicio de sesión
 class AuthenticationForm(forms.Form):
@@ -70,9 +65,9 @@ class AuthenticationForm(forms.Form):
 
     error_messages = {
         'invalid_login': _(
-            "Please enter a correct %(username)s and password. Note that both fields may be case-sensitive."
+            "Please enter a correct username and password. Note that both fields may be case-sensitive."
         ),
-        'inactive': _("This account is inactive."),
+        'inactive': _("This account is inactive. Please activate it"),
     }
 
     def __init__(self, request=None, *args, **kwargs):

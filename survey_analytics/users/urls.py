@@ -12,6 +12,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('login/', views.login, name='login'),
     path('register/', views.register, name='register'),
+    path('activate/<uidb64>/<token>/', views.activate, name='activate'),
     path('logout/', views.logout, name='logout'),
     path('forgot-password/', AnonymousPasswordResetView.as_view(
         template_name='users/forgot_password.html',

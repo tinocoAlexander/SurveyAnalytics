@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'analysis.apps.AnalysisConfig',
     'users.apps.UsersConfig',
     'errors.apps.ErrorsConfig',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [

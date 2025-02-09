@@ -7,6 +7,8 @@ from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
 from django.template.loader import render_to_string
 from django.utils import timezone
+from django.utils.decorators import method_decorator
+from django.contrib.auth import views as auth_views
 def index(request):
     title = "Homepage"
     return render(request, 'users/index.html', {'title': title})
@@ -27,11 +29,11 @@ def login(request):
             context = {
                 'user': user,
                 'login_datetime': timezone.now().strftime("%d/%m/%Y %H:%M:%S"),
-                'device_info': request.META.get('HTTP_USER_AGENT', 'Desconocido')
+                'device_info': request.META.get('HTTP_USER_AGENT', 'Unknown')
             }
 
             html_content = render_to_string('emails/login_email.html', context)
-            subject = 'Alerta: Inicio de Sesión Reciente'
+            subject = 'Alert: Someone recently logged in'
             from_email = settings.DEFAULT_FROM_EMAIL
             to_email = [user.email]
 
@@ -58,7 +60,7 @@ def register(request):
                 'register_datetime': timezone.now().strftime("%d/%m/%Y %H:%M:%S"),
             }
             html_content = render_to_string('emails/register_email.html', context)
-            subject = 'Bienvenido a Nuestra App'
+            subject = 'Welcome to our web'
             from_email = settings.DEFAULT_FROM_EMAIL
             to_email = [user.email]
             msg = EmailMultiAlternatives(subject, '', from_email, to_email)
@@ -72,3 +74,19 @@ def register(request):
 def logout(request):
     auth_logout(request)
     return redirect('users:index')
+
+@method_decorator(anonymous_required(redirect_url='errors:error_400'), name='dispatch')
+class AnonymousPasswordResetView(auth_views.PasswordResetView):
+    pass
+
+@method_decorator(anonymous_required(redirect_url='errors:error_400'), name='dispatch')
+class AnonymousPasswordResetDoneView(auth_views.PasswordResetDoneView):
+    pass
+
+@method_decorator(anonymous_required(redirect_url='errors:error_400'), name='dispatch')
+class AnonymousPasswordResetConfirmView(auth_views.PasswordResetConfirmView):
+    pass
+
+@method_decorator(anonymous_required(redirect_url='errors:error_400'), name='dispatch')
+class AnonymousPasswordResetCompleteView(auth_views.PasswordResetCompleteView):
+    pass

@@ -51,7 +51,7 @@
                     <label>
                         <input type="checkbox" name="remember_me"> Remember me
                     </label>
-                    <a href="#" class="forgot-password">&ensp;&ensp;&ensp;Forgot your password?</a>
+                    <a href="{% url 'users:password_reset' %}" class="forgot-password">&ensp;&ensp;&ensp;Forgot your password?</a>
                 </div>
 
                 <button type="submit" class="btn-login">Log in</button>

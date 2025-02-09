@@ -53,11 +53,39 @@ function cancelUpload() {
 }
 
 const surveyForm = document.querySelector('.survey-form');
+
 surveyForm.addEventListener('submit', function(event) {
     event.preventDefault();
 
-    const formData = new FormData(surveyForm);
+    const surveyNameInput = document.getElementById('survey-name');
+    let errors = [];
 
+    if (!surveyNameInput.value.trim()) {
+        errors.push("Please, set the name of your survey");
+    }
+
+    if (uploadedFiles.length === 0) {
+        errors.push("You must upload at least one file");
+    }
+
+    if (errors.length > 0) {
+        let messagesContainer = document.querySelector('.messages');
+        if (!messagesContainer) {
+            messagesContainer = document.createElement('div');
+            messagesContainer.className = 'messages';
+            surveyForm.prepend(messagesContainer);
+        }
+        messagesContainer.innerHTML = "";
+        errors.forEach(error => {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message error';
+            messageDiv.innerText = error;
+            messagesContainer.appendChild(messageDiv);
+        });
+        return;
+    }
+
+    const formData = new FormData(surveyForm);
     for (let i = 0; i < uploadedFiles.length; i++) {
         formData.append('upload_files', uploadedFiles[i]);
     }
@@ -65,9 +93,6 @@ surveyForm.addEventListener('submit', function(event) {
     fetch(surveyForm.action || window.location.href, {
         method: 'POST',
         body: formData,
-        headers: {
-
-        },
     })
     .then(response => {
         if (!response.ok) {
@@ -77,7 +102,7 @@ surveyForm.addEventListener('submit', function(event) {
     })
     .then(data => {
         console.log('Success:', data);
-        window.location.href = cancelUrl
+        window.location.href = cancelUrl;
     })
     .catch(error => {
         console.error('Error:', error);

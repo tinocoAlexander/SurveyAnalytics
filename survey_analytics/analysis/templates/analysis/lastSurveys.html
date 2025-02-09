@@ -1,0 +1,168 @@
+{% extends '../layout/base.html' %}
+{% load static %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/lastSurveys.css' %}">
+{% endblock %}
+{% block content %}
+<main class="surveys-container">
+    <h1 class="title">Last surveys</h1>
+    <p class="subtitle">Recently modified</p>
+
+    <div class="recent-surveys">
+        <div class="survey-card">
+            <div class="survey-info">
+                <img src="{% static 'images/icons/documentIcon.svg' %}" alt="Document icon">
+                <div class="survey-details">
+                    <p class="survey-name">Food preferences</p>
+                    <p class="survey-size">10 mb</p>
+                </div>
+            </div>
+            <img src="{% static 'images/icons/optionsIcon.svg' %}" alt="Options icon" class="options-icon">
+        </div>
+        <div class="survey-card">
+            <div class="survey-info">
+                <img src="{% static 'images/icons/documentIcon.svg' %}" alt="Document icon">
+                <div class="survey-details">
+                    <p class="survey-name">Food preferences</p>
+                    <p class="survey-size">10 mb</p>
+                </div>
+            </div>
+            <img src="{% static 'images/icons/optionsIcon.svg' %}" alt="Options icon" class="options-icon">
+        </div>
+        <div class="survey-card">
+            <div class="survey-info">
+                <img src="{% static 'images/icons/documentIcon.svg' %}" alt="Document icon">
+                <div class="survey-details">
+                    <p class="survey-name">Food preferences</p>
+                    <p class="survey-size">10 mb</p>
+                </div>
+            </div>
+            <img src="{% static 'images/icons/optionsIcon.svg' %}" alt="Options icon" class="options-icon">
+        </div>
+        <div class="survey-card">
+            <div class="survey-info">
+                <img src="{% static 'images/icons/documentIcon.svg' %}" alt="Document icon">
+                <div class="survey-details">
+                    <p class="survey-name">Food preferences</p>
+                    <p class="survey-size">10 mb</p>
+                </div>
+            </div>
+            <img src="{% static 'images/icons/optionsIcon.svg' %}" alt="Options icon" class="options-icon">
+        </div>
+        <div class="survey-card">
+            <div class="survey-info">
+                <img src="{% static 'images/icons/documentIcon.svg' %}" alt="Document icon">
+                <div class="survey-details">
+                    <p class="survey-name">Food preferences</p>
+                    <p class="survey-size">10 mb</p>
+                </div>
+            </div>
+            <img src="{% static 'images/icons/optionsIcon.svg' %}" alt="Options icon" class="options-icon">
+        </div>
+    </div>
+
+    <h2 class="all-surveys-title">All surveys</h2>
+
+    <div class="search-container">
+        <input type="text" placeholder="🔎 Search" class="search-input">
+    </div>
+
+    <table class="surveys-table">
+        <thead>
+            <tr>
+                <th>File name</th>
+                <th>Uploaded by</th>
+                <th>Last modified</th>
+                <th>Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div class="file-info">
+                        <input type="checkbox" id="checkbox1">
+                        <img src="{% static 'images/icons/documentIcon.svg' %}" alt="Document icon" class="options-icon">
+                        <div>
+                            <p class="survey-name">Food preferences</p>
+                            <p class="survey-size">10 mb</p>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="user-info">
+                        <img src="{% static 'images/icons/userIcon.svg' %}" alt="User avatar" class="user-avatar">
+                        <div>
+                            <p class="user-name">Tinoco Sanchez Alexander</p>
+                            <p class="user-email">alexnuevo040@gmail.com</p>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <p class="last-modified">February 5th, 2025</p>
+                </td>
+                <td>
+                    <img src="{% static 'images/icons/optionsIcon.svg' %}" alt="Options icon" class="options-icon">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="file-info">
+                        <input type="checkbox" id="checkbox2">
+                        <img src="{% static 'images/icons/documentIcon.svg' %}" alt="Document icon" class="options-icon">
+                        <div>
+                            <p class="survey-name">Food preferences</p>
+                            <p class="survey-size">10 mb</p>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="user-info">
+                        <img src="{% static 'images/icons/userIcon.svg' %}" alt="User avatar" class="user-avatar">
+                        <div>
+                            <p class="user-name">Tinoco Sanchez Alexander</p>
+                            <p class="user-email">alexnuevo040@gmail.com</p>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <p class="last-modified">February 5th, 2025</p>
+                </td>
+                <td>
+                    <img src="{% static 'images/icons/optionsIcon.svg' %}" alt="Options icon" class="options-icon">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="file-info">
+                        <input type="checkbox" id="checkbox3">
+                        <img src="{% static 'images/icons/documentIcon.svg' %}" alt="Document icon" class="options-icon">
+                        <div>
+                            <p class="survey-name">Food preferences</p>
+                            <p class="survey-size">10 mb</p>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="user-info">
+                        <img src="{% static 'images/icons/userIcon.svg' %}" alt="User avatar" class="user-avatar">
+                        <div>
+                            <p class="user-name">Tinoco Sanchez Alexander</p>
+                            <p class="user-email">alexnuevo040@gmail.com</p>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <p class="last-modified">February 5th, 2025</p>
+                </td>
+                <td>
+                    <img src="{% static 'images/icons/optionsIcon.svg' %}" alt="Options icon" class="options-icon">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="pagination">
+        <button class="pagination-btn">1</button>
+    </div>
+</main>
+{% endblock %}

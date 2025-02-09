@@ -7,6 +7,8 @@ idea/
 env/ # Archivos de environment para instalar librerias
 # C extensions
 *.so
+.env
+survey_analytics/.env
 
 # Distribution / packaging
 .Python

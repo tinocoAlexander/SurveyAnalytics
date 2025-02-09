@@ -22,27 +22,38 @@
                 <h1>Welcome here!</h1>
                 <p>Please create your new account</p>
             </div>
-            <form>
-                <input type="text" id="name" class="form-input" placeholder="Enter your name">
-                <input type="email" id="email" class="form-input" placeholder="Enter your email">
+            <form method="post">
+                {% csrf_token %}
 
-                <div class="password-container">
-                    <input type="password" id="password" class="form-input" placeholder="Enter your password">
-                    <img
-                        src="{% static 'images/icons/eyeClosedIcon.svg' %}"
-                        alt="Error while loading the image"
-                        id="toggle-password"
-                        class="password-toggle"
-                        onclick="togglePasswordVisibility()">
+                <div class="form-group">
+                    {{ form.username }}
+                    {% if form.username.errors %}
+                        <div class="error">{{ form.username.errors }}</div>
+                    {% endif %}
                 </div>
 
-                <div class="form-options">
-                    <label>
-                        <input type="checkbox"> Remember me
-                    </label>
+                <div class="form-group">
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                        <div class="error">{{ form.email.errors }}</div>
+                    {% endif %}
                 </div>
 
-                <button type="submit" class="btn-login">Log in</button>
+                <div class="form-group">
+                    <div class="password-container">
+                        {{ form.password }}
+                        <img src="{% static 'images/icons/eyeClosedIcon.svg' %}"
+                             alt="Error while loading the image"
+                             id="toggle-password"
+                             class="password-toggle"
+                             onclick="togglePasswordVisibility()">
+                    </div>
+                    {% if form.password.errors %}
+                        <div class="error">{{ form.password.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <button type="submit" class="btn-login">Register</button>
             </form>
             <div class="form-footer">
                 <p>Do you have an account already? <br> <a href="{% url 'users:login' %}">Log in</a></p>

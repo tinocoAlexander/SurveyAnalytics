@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Welcome to Our App</title>
+  <style type="text/css">
+    body {
+      background-color: #f5f5f5;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+    .card {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      padding: 20px;
+      color: #333333;
+    }
+    .card h2 {
+      margin-top: 0;
+      color: #333333;
+    }
+    .card p {
+      line-height: 1.5;
+      margin: 15px 0;
+      color: #555555;
+    }
+    .card .detail {
+      font-weight: bold;
+    }
+    .footer {
+      margin-top: 20px;
+      font-size: 12px;
+      color: #999999;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>Welcome, {{ user.username }}!</h2>
+    <p>
+      Thank you for registering in our application. We are delighted to have you with us and hope you enjoy all the features we have prepared for you.
+    </p>
+    <p>
+      <span class="detail">Registration Date and Time:</span> {{ register_datetime }}
+    </p>
+    <p>
+      If you have any questions or need assistance, please do not hesitate to contact our support team.
+    </p>
+    <div class="footer">
+      This is an automated message. Please do not reply to this email.
+    </div>
+  </div>
+</body>
+</html>

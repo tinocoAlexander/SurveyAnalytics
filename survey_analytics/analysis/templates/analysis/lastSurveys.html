@@ -36,7 +36,7 @@
     <table class="surveys-table">
         <thead>
             <tr>
-                <th>File name</th>
+                <th>Survey's title</th>
                 <th>Uploaded by</th>
                 <th>Last modified</th>
                 <th>Options</th>
@@ -86,7 +86,10 @@
     </table>
 
     <div class="pagination">
-        <button class="pagination-btn">1</button>
     </div>
 </main>
+{% endblock %}
+
+{% block below_js %}
+    <script src="{% static 'js/lastSurveys.js' %}"></script>
 {% endblock %}

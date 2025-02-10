@@ -2,110 +2,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{{ title }}{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
-    <script src="{% static 'js/load.js' %}" defer></script>
-    <script src="{% static 'js/sidebar.js' %}" defer></script>
-    {% block extra_css %}{% endblock %}
-    {% block extra_js %}{% endblock %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{{ title }}{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+  <script src="{% static 'js/load.js' %}" defer></script>
+  <script src="{% static 'js/sidebar.js' %}" defer></script>
+  {% block extra_css %}{% endblock %}
+  {% block extra_js %}{% endblock %}
 </head>
 <body>
 
-    <div id="loading-screen">
-        <div class="loader"></div>
-        <p>Loading...</p>
-    </div>
+  <div id="loading-screen">
+    <div class="loader"></div>
+    <p>Loading...</p>
+  </div>
 
-    <header class="header">
-        <nav class="navbar">
-            <a href="{% url 'users:index' %}" class="logo">SurveyAnalytics</a>
+  <header class="header">
+    <nav class="navbar">
+      <a href="{% url 'users:index' %}" class="logo">SurveyAnalytics</a>
 
-            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+      <button class="menu-toggle" onclick="toggleMenu()">☰</button>
 
-            <ul class="nav-links">
-                {% if user.is_authenticated %}
-                    <li><a href="{% url 'users:index' %}">Home</a></li>
-                    <li><a href="{% url 'analysis:analysisSurveys' %}">New Surveys</a></li>
-                    <li><a href="{% url 'analysis:lastSurveys' %}">Last Surveys</a></li>
-                {% else %}
-                    <li><a href="{% url 'users:index' %}">Home</a></li>
-                {% endif %}
+      <ul class="nav-links">
+        {% if user.is_authenticated %}
+          <li><a href="{% url 'users:index' %}">Home</a></li>
+          <li><a href="{% url 'analysis:analysisSurveys' %}">New Surveys</a></li>
+          <li><a href="{% url 'analysis:lastSurveys' %}">Last Surveys</a></li>
+        {% else %}
+          <li><a href="{% url 'users:index' %}">Home</a></li>
+        {% endif %}
+      </ul>
+
+      {% if user.is_authenticated %}
+        <div id="user-info" class="user-info-modal-trigger">
+          <img src="{% static 'images/icons/userIcon.svg' %}" alt="User Icon" width="32" height="32">
+          <span class="user-name">Hello, {{ user.username }}!</span>
+          <!-- Dropdown para opciones de usuario -->
+          <div id="user-modal">
+            <ul>
+              <li><a href="{% url 'users:index' %}">Change Password</a></li>
+              <li><a href="{% url 'users:logout' %}">Log out</a></li>
             </ul>
+          </div>
+        </div>
+      {% else %}
+        <a href="{% url 'users:login' %}" class="nav-button">Log in</a>
+      {% endif %}
+    </nav>
+  </header>
 
-            {% if user.is_authenticated %}
-                <div id="user-info" class="user-info-modal-trigger">
-                    <img src="{% static 'images/icons/userIcon.svg' %}" alt="User Icon" width="32" height="32">
-                    <span class="user-name">Hello, {{ user.username }}!</span>
-                    <div id="user-modal">
-                        <ul>
-                            <li><a href="{% url 'users:index' %}">Change Password</a></li>
-                            <li><a href="{% url 'users:logout' %}">Log out</a></li>
-                        </ul>
-                    </div>
-                </div>
-            {% else %}
-                <a href="{% url 'users:login' %}" class="nav-button">Log in</a>
-            {% endif %}
-        </nav>
-    </header>
+  <div id="sidebar" class="sidebar">
+    <button class="close-btn" onclick="toggleMenu()">X</button>
+    <h2 class="sidebar-title">Menú de opciones</h2>
+    <ul>
+      {% if user.is_authenticated %}
+        <li class="user-name">Hello, {{ user.username }}!</li>
+        <li><a href="{% url 'users:index' %}">Home</a></li>
+        <li><a href="{% url 'analysis:analysisSurveys' %}">New Surveys</a></li>
+        <li><a href="{% url 'analysis:lastSurveys' %}">Last Surveys</a></li>
+      {% else %}
+        <li><a href="{% url 'users:index' %}">Home</a></li>
+      {% endif %}
+      {% if user.is_authenticated %}
+        <li><a href="{% url 'users:index' %}">Change Password</a></li>
+        <li><a href="{% url 'users:logout' %}">Log out</a></li>
+      {% else %}
+        <li><a href="{% url 'users:login' %}" class="sidebar-login">Log in</a></li>
+      {% endif %}
+    </ul>
+  </div>
 
-    <div id="sidebar" class="sidebar">
-        <button class="close-btn" onclick="toggleMenu()">X</button>
-        <h2 class="sidebar-title">Menú de opciones</h2>
-        <ul>
-            {% if user.is_authenticated %}
-                <li class="user-name">Hello, {{ user.username }}!</li>
-                <li><a href="{% url 'users:index' %}">Home</a></li>
-                <li><a href="{% url 'analysis:analysisSurveys' %}">New Surveys</a></li>
-                <li><a href="{% url 'analysis:lastSurveys' %}">Last Surveys</a></li>
-            {% else %}
-                <li><a href="{% url 'users:index' %}">Home</a></li>
-            {% endif %}
-            {% if user.is_authenticated %}
-                <li><a href="{% url 'users:index' %}">Change Password</a></li>
-                <li><a href="{% url 'users:logout' %}">Log out</a></li>
-            {% else %}
-                <li><a href="{% url 'users:login' %}" class="sidebar-login">Log in</a></li>
-            {% endif %}
-        </ul>
-    </div>
+  <main class="body">
+    {% block content %}{% endblock %}
+  </main>
 
-    <main class="body">
-        {% block content %}{% endblock %}
-    </main>
-
-    <script>
-        function toggleMenu() {
-            const sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('active');
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const userInfo = document.getElementById('user-info');
-            const userModal = document.getElementById('user-modal');
-
-            if (userInfo) {
-                userInfo.addEventListener('click', function(event) {
-                    event.stopPropagation();
-                    if (userModal.style.display === 'block') {
-                        userModal.style.display = 'none';
-                    } else {
-                        userModal.style.display = 'block';
-                    }
-                });
-            }
-
-            window.addEventListener('click', function(event) {
-                if (!userInfo.contains(event.target)) {
-                    userModal.style.display = 'none';
-                }
-            });
-        });
-    </script>
-
-    {% block below_js %}{% endblock %}
+  {% block dropdown_js %}
+    <script src="{% static 'js/profileDropdown.js' %}" defer></script>
+  {% endblock %}
+  {% block below_js %}
+  {% endblock %}
 </body>
 </html>

@@ -51,7 +51,6 @@
     margin-right: 15.625rem;
 }
 
-/* Responsividad */
 @media screen and (max-width: 1024px) {
     .hero {
         flex-direction: column;

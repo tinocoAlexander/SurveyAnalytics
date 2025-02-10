@@ -1,9 +1,3 @@
-/* Importaciones de fuentes de google fonts
-1. Poppins   font-family: "Poppins", serif;
-2. Roboto Mono   font-family: "Roboto Mono", serif;
-3. Inter:   font-family: "Inter", serif;
-*/
-
 .django-messages {
     width: 80%;
     margin: 1rem auto;
@@ -60,7 +54,7 @@
     display: flex;
     width: 60%;
     background-color: #fff;
-    border-radius: 1.25rem; /* 20px */
+    border-radius: 1.25rem;
     box-shadow: 0 0.125rem 0.625rem rgba(0, 0, 0, 0.1);
     overflow: hidden;
 }
@@ -198,7 +192,6 @@ form {
     color: #007bff;
 }
 
-/*Tablets*/
 @media screen and (max-width: 768px) {
     .login-card {
         flex-direction: column;
@@ -233,7 +226,6 @@ form {
     }
 }
 
-/* Smartphones */
 @media screen and (max-width: 480px) {
     .login-container {
         padding: 1rem;

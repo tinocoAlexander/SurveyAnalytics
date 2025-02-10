@@ -9,7 +9,7 @@ env/ # Archivos de environment para instalar librerias
 *.so
 .env
 survey_analytics/.env
-
+./survey_analytics/media/
 # Distribution / packaging
 .Python
 build/

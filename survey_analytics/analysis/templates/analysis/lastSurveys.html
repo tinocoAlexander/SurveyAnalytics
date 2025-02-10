@@ -10,17 +10,24 @@
 
     <div class="recent-surveys">
         {% for survey in recent_surveys %}
-        <div class="survey-card">
+        <!-- La tarjeta de encuesta es clickeable para la acción "Abrir" -->
+        <div class="survey-card" onclick="openSurvey('{{ survey.id }}')">
             <div class="survey-info">
                 <img src="{% static 'images/icons/documentIcon.svg' %}" alt="Document icon">
                 <div class="survey-details">
                     <p class="survey-name">{{ survey.name }}</p>
-                    <p class="survey-size">
-                        {{ survey.total_size_mb|floatformat:1 }} mb
-                    </p>
+                    <p class="survey-size">{{ survey.total_size_mb|floatformat:1 }} mb</p>
                 </div>
             </div>
-            <img src="{% static 'images/icons/optionsIcon.svg' %}" alt="Options icon" class="options-icon">
+            <!-- Contenedor del icono de opciones y su dropdown -->
+            <div class="options-container" onclick="event.stopPropagation(); toggleOptionsDropdown(this);">
+                <img src="{% static 'images/icons/optionsIcon.svg' %}" alt="Options icon" class="options-icon">
+                <div class="options-dropdown">
+                    <a href="{% url 'users:index' %}" onclick="event.stopPropagation();">Abrir</a>
+                    <a href="{% url 'users:index' %}" onclick="event.stopPropagation();">Editar</a>
+                    <a href="{% url 'users:index' %}" onclick="event.stopPropagation();">Eliminar</a>
+                </div>
+            </div>
         </div>
         {% empty %}
             <p>No recent surveys available.</p>
@@ -44,10 +51,10 @@
         </thead>
         <tbody>
             {% for survey in all_surveys %}
-            <tr>
+            <!-- La fila es clickeable para "Abrir" la encuesta -->
+            <tr onclick="openSurvey('{{ survey.id }}')">
                 <td>
                     <div class="file-info">
-                        <input type="checkbox" id="checkbox{{ forloop.counter }}">
                         <img src="{% static 'images/icons/documentIcon.svg' %}" alt="Document icon" class="options-icon">
                         <div>
                             <p class="survey-name">{{ survey.name }}</p>
@@ -73,8 +80,15 @@
                         {% endif %}
                     </p>
                 </td>
-                <td>
-                    <img src="{% static 'images/icons/optionsIcon.svg' %}" alt="Options icon" class="options-icon">
+                <td onclick="event.stopPropagation();">
+                    <div class="options-container" onclick="event.stopPropagation(); toggleOptionsDropdown(this);">
+                        <img src="{% static 'images/icons/optionsIcon.svg' %}" alt="Options icon" class="options-icon">
+                        <div class="options-dropdown">
+                            <a href="{% url 'users:index' %}" onclick="event.stopPropagation();">Abrir</a>
+                            <a href="{% url 'users:index' %}" onclick="event.stopPropagation();">Editar</a>
+                            <a href="{% url 'users:index' %}" onclick="event.stopPropagation();">Eliminar</a>
+                        </div>
+                    </div>
                 </td>
             </tr>
             {% empty %}
@@ -92,4 +106,34 @@
 
 {% block below_js %}
     <script src="{% static 'js/lastSurveys.js' %}"></script>
+    <script>
+        function openSurvey(surveyId) {
+            window.location.href = "{% url 'users:index' %}";
+        }
+
+        function toggleOptionsDropdown(container) {
+            var dropdown = container.querySelector('.options-dropdown');
+            if (dropdown.style.display === 'none' || dropdown.style.display === '') {
+                // Cierra todos los dropdowns abiertos.
+                document.querySelectorAll('.options-dropdown').forEach(function(dd) {
+                    dd.style.display = 'none';
+                });
+                dropdown.style.display = 'block';
+            } else {
+                dropdown.style.display = 'none';
+            }
+        }
+
+        document.addEventListener('click', function(event) {
+            var containers = document.querySelectorAll('.options-container');
+            containers.forEach(function(container) {
+                if (!container.contains(event.target)) {
+                    var dropdown = container.querySelector('.options-dropdown');
+                    if (dropdown) {
+                        dropdown.style.display = 'none';
+                    }
+                }
+            });
+        });
+    </script>
 {% endblock %}

@@ -32,7 +32,7 @@
              onclick="document.getElementById('upload-files').click()"
              ondrop="handleDrop(event)"
              ondragover="allowDrop(event)">
-            <input type="file" name="upload_files" id="upload-files" accept=".csv, .xls" multiple hidden>
+            <input type="file" name="upload_files" id="upload-files" accept=".csv, .xls, .xlsx" multiple hidden>
             <img src="{% static 'images/icons/uploadIcon.svg' %}" alt="Error loading the image" class="icons upload-icon">
             <p>Drag & drop your files here or <span class="file-choose">choose files</span></p>
             <small>CSV or Excel files only</small>

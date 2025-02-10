@@ -1,18 +1,22 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import logout as auth_logout
-from django.contrib.auth import login as auth_login
+from django.contrib.auth import logout as auth_logout, login as auth_login
 from .forms import UserRegisterForm, AuthenticationForm
 from .decorators import anonymous_required
+from django.utils.decorators import method_decorator
 from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
 from django.template.loader import render_to_string
 from django.utils import timezone
-from django.utils.decorators import method_decorator
-from django.contrib.auth import views as auth_views
-from django.utils.http import urlsafe_base64_encode
-from django.utils.encoding import force_bytes
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.contrib.auth.tokens import default_token_generator
+from django.contrib import messages
+from django.contrib.auth import get_user_model
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes
+from django.contrib.auth import views as auth_views
+from django.contrib.auth.views import PasswordChangeView
+from django.contrib.auth.decorators import login_required
+
 def index(request):
     title = "Homepage"
     return render(request, 'users/index.html', {'title': title})
@@ -50,7 +54,6 @@ def login(request):
         form = AuthenticationForm(request)
 
     return render(request, 'users/login.html', {'title': title, 'form': form})
-
 
 @anonymous_required(redirect_url='errors:error_400')
 def register(request):
@@ -104,43 +107,47 @@ def activate(request, uidb64, token):
         messages.error(request, 'The activation link is invalid or has expired.')
         return redirect('users:login')
 
-from django.contrib.auth import get_user_model
-from django.utils.http import urlsafe_base64_decode
-from django.contrib import messages
-
-def activate(request, uidb64, token):
-    try:
-        uid = urlsafe_base64_decode(uidb64).decode()
-        User = get_user_model()
-        user = User.objects.get(pk=uid)
-    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
-        user = None
-
-    if user is not None and default_token_generator.check_token(user, token):
-        user.is_active = True
-        user.save()
-        messages.success(request, 'Your account has been successfully activated! You can now log in.')
-        return redirect('users:login')
-    else:
-        messages.error(request, 'The activation link is invalid or has expired.')
-        return redirect('users:login')
-
 def logout(request):
     auth_logout(request)
     return redirect('users:index')
 
 @method_decorator(anonymous_required(redirect_url='errors:error_400'), name='dispatch')
-class AnonymousPasswordResetView(auth_views.PasswordResetView):
-    pass
+class PasswordResetView(auth_views.PasswordResetView):
+    template_name = 'users/forgot_password.html'
+    email_template_name = 'users/password_reset_email.html'
+    html_email_template_name = 'users/password_reset_email.html'
+    subject_template_name = 'users/password_reset_subject.txt'
+    success_url = reverse_lazy('users:password_reset_done')
 
 @method_decorator(anonymous_required(redirect_url='errors:error_400'), name='dispatch')
-class AnonymousPasswordResetDoneView(auth_views.PasswordResetDoneView):
-    pass
+class PasswordResetDoneView(auth_views.PasswordResetDoneView):
+    template_name = 'users/password_reset_done.html'
 
 @method_decorator(anonymous_required(redirect_url='errors:error_400'), name='dispatch')
-class AnonymousPasswordResetConfirmView(auth_views.PasswordResetConfirmView):
-    pass
+class PasswordResetConfirmView(auth_views.PasswordResetConfirmView):
+    template_name = 'users/password_reset_confirm.html'
+    success_url = reverse_lazy('users:login')
 
-@method_decorator(anonymous_required(redirect_url='errors:error_400'), name='dispatch')
-class AnonymousPasswordResetCompleteView(auth_views.PasswordResetCompleteView):
-    pass
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        auth_logout(self.request)
+        messages.success(
+            self.request,
+            "Your password has been changed and your session has been ended. Please log in again with your new password."
+        )
+        return response
+
+@method_decorator(login_required(login_url='errors:error_401'), name='dispatch')
+class CustomPasswordChangeView(PasswordChangeView):
+
+    template_name = 'users/password_change.html'
+    success_url = reverse_lazy('users:login')
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        auth_logout(self.request)
+        messages.success(
+            self.request,
+            "Your password has been changed successfully. Please log in again."
+        )
+        return response

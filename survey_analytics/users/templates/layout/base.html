@@ -39,10 +39,9 @@
         <div id="user-info" class="user-info-modal-trigger">
           <img src="{% static 'images/icons/userIcon.svg' %}" alt="User Icon" width="32" height="32">
           <span class="user-name">Hello, {{ user.username }}!</span>
-          <!-- Dropdown para opciones de usuario -->
           <div id="user-modal">
             <ul>
-              <li><a href="{% url 'users:index' %}">Change Password</a></li>
+              <li><a href="{% url 'users:change_password' %}">Change Password</a></li>
               <li><a href="{% url 'users:logout' %}">Log out</a></li>
             </ul>
           </div>
@@ -66,7 +65,7 @@
         <li><a href="{% url 'users:index' %}">Home</a></li>
       {% endif %}
       {% if user.is_authenticated %}
-        <li><a href="{% url 'users:index' %}">Change Password</a></li>
+        <li><a href="{% url 'users:change_password' %}">Change Password</a></li>
         <li><a href="{% url 'users:logout' %}">Log out</a></li>
       {% else %}
         <li><a href="{% url 'users:login' %}" class="sidebar-login">Log in</a></li>

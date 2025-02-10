@@ -45,12 +45,6 @@ def lastSurveys(request):
     return render(request, 'analysis/lastSurveys.html', context)
 
 @login_required(login_url='errors:error_401')
-def resultSurveys(request):
-    title = "Results Surveys"
-    return render(request, 'analysis/resultSurveys.html', {'title': title})
-
-
-@login_required(login_url='errors:error_401')
 def analysisSurveys(request):
     title = "Add Surveys"
     if request.method == 'POST':
@@ -217,3 +211,10 @@ def downloadPDF(request, survey_id):
     response = HttpResponse(pdf_file, content_type='application/pdf')
     response['Content-Disposition'] = f'attachment; filename="survey_{survey.id}_analysis.pdf"'
     return response
+
+@login_required(login_url='errors:error_401')
+def deleteSurvey(request, survey_id):
+    survey = get_object_or_404(Survey, id=survey_id, user=request.user)
+    survey.delete()
+    messages.success(request, "Survey deleted successfully.")
+    return redirect('analysis:lastSurveys')

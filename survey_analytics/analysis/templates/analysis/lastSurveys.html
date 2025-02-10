@@ -10,7 +10,6 @@
 
     <div class="recent-surveys">
         {% for survey in recent_surveys %}
-        <!-- La tarjeta de encuesta es clickeable para la acción "Abrir" -->
         <div class="survey-card" onclick="openSurvey('{{ survey.id }}')">
             <div class="survey-info">
                 <img src="{% static 'images/icons/documentIcon.svg' %}" alt="Document icon">
@@ -19,13 +18,11 @@
                     <p class="survey-size">{{ survey.total_size_mb|floatformat:1 }} mb</p>
                 </div>
             </div>
-            <!-- Contenedor del icono de opciones y su dropdown -->
             <div class="options-container" onclick="event.stopPropagation(); toggleOptionsDropdown(this);">
                 <img src="{% static 'images/icons/optionsIcon.svg' %}" alt="Options icon" class="options-icon">
                 <div class="options-dropdown">
-                    <a href="{% url 'users:index' %}" onclick="event.stopPropagation();">Abrir</a>
-                    <a href="{% url 'users:index' %}" onclick="event.stopPropagation();">Editar</a>
-                    <a href="{% url 'users:index' %}" onclick="event.stopPropagation();">Eliminar</a>
+                    <a href="{% url 'analysis:analysis_graphs' survey.id %}" onclick="event.stopPropagation();">Open</a>
+                    <a href="{% url 'analysis:delete_survey' survey.id %}" onclick="return confirmDelete(event);">Eliminate</a>
                 </div>
             </div>
         </div>
@@ -51,7 +48,6 @@
         </thead>
         <tbody>
             {% for survey in all_surveys %}
-            <!-- La fila es clickeable para "Abrir" la encuesta -->
             <tr onclick="openSurvey('{{ survey.id }}')">
                 <td>
                     <div class="file-info">
@@ -84,9 +80,8 @@
                     <div class="options-container" onclick="event.stopPropagation(); toggleOptionsDropdown(this);">
                         <img src="{% static 'images/icons/optionsIcon.svg' %}" alt="Options icon" class="options-icon">
                         <div class="options-dropdown">
-                            <a href="{% url 'users:index' %}" onclick="event.stopPropagation();">Abrir</a>
-                            <a href="{% url 'users:index' %}" onclick="event.stopPropagation();">Editar</a>
-                            <a href="{% url 'users:index' %}" onclick="event.stopPropagation();">Eliminar</a>
+                            <a href="{% url 'analysis:analysis_graphs' survey.id %}" onclick="event.stopPropagation();">Open</a>
+                            <a href="{% url 'analysis:delete_survey' survey.id %}" onclick="return confirmDelete(event);">Eliminate</a>
                         </div>
                     </div>
                 </td>
@@ -108,13 +103,12 @@
     <script src="{% static 'js/lastSurveys.js' %}"></script>
     <script>
         function openSurvey(surveyId) {
-            window.location.href = "{% url 'users:index' %}";
+            window.location.href = "/graphs/" + surveyId + "/";
         }
 
         function toggleOptionsDropdown(container) {
             var dropdown = container.querySelector('.options-dropdown');
             if (dropdown.style.display === 'none' || dropdown.style.display === '') {
-                // Cierra todos los dropdowns abiertos.
                 document.querySelectorAll('.options-dropdown').forEach(function(dd) {
                     dd.style.display = 'none';
                 });
@@ -135,5 +129,15 @@
                 }
             });
         });
+
+        function confirmDelete(event) {
+            event.stopPropagation();
+            if (confirm("Are you sure you want to delete this survey?")) {
+                return true;
+            } else {
+                event.preventDefault();
+                return false;
+            }
+        }
     </script>
 {% endblock %}

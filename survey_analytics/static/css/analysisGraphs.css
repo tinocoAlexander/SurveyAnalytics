@@ -46,3 +46,30 @@
     height: auto;
     border-radius: 0.5rem;
 }
+
+.insights-container {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.125rem 0.5rem rgba(0,0,0,0.1);
+    text-align: left;
+}
+
+.insights-title {
+    font-family: "Poppins", sans-serif;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.insights-list {
+    font-family: "Roboto Mono", sans-serif;
+    font-size: 1.1rem;
+    list-style-type: disc;
+    padding-left: 1.5rem;
+}
+
+.insights-list li {
+    margin-bottom: 0.5rem;
+}

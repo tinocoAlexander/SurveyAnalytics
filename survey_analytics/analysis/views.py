@@ -103,14 +103,28 @@ def analysisGraphs(request, survey_id):
         df = pd.DataFrame()
 
     graphs = []
+    insights = []
+
     if not df.empty:
+        num_responses = len(df)
+        insights.append(f"Total responses collected: {num_responses}")
+
         for col in df.columns:
             plt.figure(figsize=(6, 4))
             if df[col].dtype == 'object' or df[col].nunique() < 10:
                 counts = df[col].value_counts()
                 counts.plot(kind='bar', color='#4f46e5')
+
+                most_frequent = counts.idxmax()
+                most_frequent_count = counts.max()
+                insights.append(f"Most common response for '{col}': {most_frequent} ({most_frequent_count} responses)")
+
             else:
                 df[col].plot(kind='hist', color='#4f46e5', bins=10)
+
+                avg_value = df[col].mean()
+                insights.append(f"Average score for '{col}': {avg_value:.2f}")
+
             plt.title(col, fontsize=14, fontfamily='DejaVu Sans')
             plt.xlabel("Response", fontsize=12, fontfamily='DejaVu Sans')
             plt.ylabel("Frequency", fontsize=12, fontfamily='DejaVu Sans')
@@ -128,5 +142,6 @@ def analysisGraphs(request, survey_id):
     context = {
         'survey': survey,
         'graphs': graphs,
+        'insights': insights,
     }
     return render(request, 'analysis/analysisGraphs.html', context)

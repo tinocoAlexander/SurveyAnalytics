@@ -18,5 +18,15 @@
             </div>
         {% endfor %}
     </div>
+
+    <div class="insights-container">
+        <h2 class="insights-title">Key Insights</h2>
+        <ul class="insights-list">
+            {% for insight in insights %}
+                <li>{{ insight }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
 </main>
 {% endblock %}

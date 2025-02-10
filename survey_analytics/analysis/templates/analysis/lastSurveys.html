@@ -9,56 +9,29 @@
     <p class="subtitle">Recently modified</p>
 
     <div class="recent-surveys">
-        <div class="survey-card">
+        {% for survey in recent_surveys %}
+        <!-- La tarjeta de encuesta es clickeable para la acción "Abrir" -->
+        <div class="survey-card" onclick="openSurvey('{{ survey.id }}')">
             <div class="survey-info">
                 <img src="{% static 'images/icons/documentIcon.svg' %}" alt="Document icon">
                 <div class="survey-details">
-                    <p class="survey-name">Food preferences</p>
-                    <p class="survey-size">10 mb</p>
+                    <p class="survey-name">{{ survey.name }}</p>
+                    <p class="survey-size">{{ survey.total_size_mb|floatformat:1 }} mb</p>
                 </div>
             </div>
-            <img src="{% static 'images/icons/optionsIcon.svg' %}" alt="Options icon" class="options-icon">
-        </div>
-        <div class="survey-card">
-            <div class="survey-info">
-                <img src="{% static 'images/icons/documentIcon.svg' %}" alt="Document icon">
-                <div class="survey-details">
-                    <p class="survey-name">Food preferences</p>
-                    <p class="survey-size">10 mb</p>
+            <!-- Contenedor del icono de opciones y su dropdown -->
+            <div class="options-container" onclick="event.stopPropagation(); toggleOptionsDropdown(this);">
+                <img src="{% static 'images/icons/optionsIcon.svg' %}" alt="Options icon" class="options-icon">
+                <div class="options-dropdown">
+                    <a href="{% url 'users:index' %}" onclick="event.stopPropagation();">Abrir</a>
+                    <a href="{% url 'users:index' %}" onclick="event.stopPropagation();">Editar</a>
+                    <a href="{% url 'users:index' %}" onclick="event.stopPropagation();">Eliminar</a>
                 </div>
             </div>
-            <img src="{% static 'images/icons/optionsIcon.svg' %}" alt="Options icon" class="options-icon">
         </div>
-        <div class="survey-card">
-            <div class="survey-info">
-                <img src="{% static 'images/icons/documentIcon.svg' %}" alt="Document icon">
-                <div class="survey-details">
-                    <p class="survey-name">Food preferences</p>
-                    <p class="survey-size">10 mb</p>
-                </div>
-            </div>
-            <img src="{% static 'images/icons/optionsIcon.svg' %}" alt="Options icon" class="options-icon">
-        </div>
-        <div class="survey-card">
-            <div class="survey-info">
-                <img src="{% static 'images/icons/documentIcon.svg' %}" alt="Document icon">
-                <div class="survey-details">
-                    <p class="survey-name">Food preferences</p>
-                    <p class="survey-size">10 mb</p>
-                </div>
-            </div>
-            <img src="{% static 'images/icons/optionsIcon.svg' %}" alt="Options icon" class="options-icon">
-        </div>
-        <div class="survey-card">
-            <div class="survey-info">
-                <img src="{% static 'images/icons/documentIcon.svg' %}" alt="Document icon">
-                <div class="survey-details">
-                    <p class="survey-name">Food preferences</p>
-                    <p class="survey-size">10 mb</p>
-                </div>
-            </div>
-            <img src="{% static 'images/icons/optionsIcon.svg' %}" alt="Options icon" class="options-icon">
-        </div>
+        {% empty %}
+            <p>No recent surveys available.</p>
+        {% endfor %}
     </div>
 
     <h2 class="all-surveys-title">All surveys</h2>
@@ -70,21 +43,22 @@
     <table class="surveys-table">
         <thead>
             <tr>
-                <th>File name</th>
+                <th>Survey's title</th>
                 <th>Uploaded by</th>
                 <th>Last modified</th>
                 <th>Options</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
+            {% for survey in all_surveys %}
+            <!-- La fila es clickeable para "Abrir" la encuesta -->
+            <tr onclick="openSurvey('{{ survey.id }}')">
                 <td>
                     <div class="file-info">
-                        <input type="checkbox" id="checkbox1">
                         <img src="{% static 'images/icons/documentIcon.svg' %}" alt="Document icon" class="options-icon">
                         <div>
-                            <p class="survey-name">Food preferences</p>
-                            <p class="survey-size">10 mb</p>
+                            <p class="survey-name">{{ survey.name }}</p>
+                            <p class="survey-size">{{ survey.total_size_mb|floatformat:1 }} mb</p>
                         </div>
                     </div>
                 </td>
@@ -92,77 +66,74 @@
                     <div class="user-info">
                         <img src="{% static 'images/icons/userIcon.svg' %}" alt="User avatar" class="user-avatar">
                         <div>
-                            <p class="user-name">Tinoco Sanchez Alexander</p>
-                            <p class="user-email">alexnuevo040@gmail.com</p>
+                            <p class="user-name">{{ survey.user.get_full_name }}</p>
+                            <p class="user-email">{{ survey.user.email }}</p>
                         </div>
                     </div>
                 </td>
                 <td>
-                    <p class="last-modified">February 5th, 2025</p>
+                    <p class="last-modified">
+                        {% if survey.last_modified %}
+                            {{ survey.last_modified|date:"F jS, Y" }}
+                        {% else %}
+                            Not modified
+                        {% endif %}
+                    </p>
                 </td>
-                <td>
-                    <img src="{% static 'images/icons/optionsIcon.svg' %}" alt="Options icon" class="options-icon">
+                <td onclick="event.stopPropagation();">
+                    <div class="options-container" onclick="event.stopPropagation(); toggleOptionsDropdown(this);">
+                        <img src="{% static 'images/icons/optionsIcon.svg' %}" alt="Options icon" class="options-icon">
+                        <div class="options-dropdown">
+                            <a href="{% url 'users:index' %}" onclick="event.stopPropagation();">Abrir</a>
+                            <a href="{% url 'users:index' %}" onclick="event.stopPropagation();">Editar</a>
+                            <a href="{% url 'users:index' %}" onclick="event.stopPropagation();">Eliminar</a>
+                        </div>
+                    </div>
                 </td>
             </tr>
+            {% empty %}
             <tr>
-                <td>
-                    <div class="file-info">
-                        <input type="checkbox" id="checkbox2">
-                        <img src="{% static 'images/icons/documentIcon.svg' %}" alt="Document icon" class="options-icon">
-                        <div>
-                            <p class="survey-name">Food preferences</p>
-                            <p class="survey-size">10 mb</p>
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <div class="user-info">
-                        <img src="{% static 'images/icons/userIcon.svg' %}" alt="User avatar" class="user-avatar">
-                        <div>
-                            <p class="user-name">Tinoco Sanchez Alexander</p>
-                            <p class="user-email">alexnuevo040@gmail.com</p>
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <p class="last-modified">February 5th, 2025</p>
-                </td>
-                <td>
-                    <img src="{% static 'images/icons/optionsIcon.svg' %}" alt="Options icon" class="options-icon">
-                </td>
+                <td colspan="4">No surveys found.</td>
             </tr>
-            <tr>
-                <td>
-                    <div class="file-info">
-                        <input type="checkbox" id="checkbox3">
-                        <img src="{% static 'images/icons/documentIcon.svg' %}" alt="Document icon" class="options-icon">
-                        <div>
-                            <p class="survey-name">Food preferences</p>
-                            <p class="survey-size">10 mb</p>
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <div class="user-info">
-                        <img src="{% static 'images/icons/userIcon.svg' %}" alt="User avatar" class="user-avatar">
-                        <div>
-                            <p class="user-name">Tinoco Sanchez Alexander</p>
-                            <p class="user-email">alexnuevo040@gmail.com</p>
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <p class="last-modified">February 5th, 2025</p>
-                </td>
-                <td>
-                    <img src="{% static 'images/icons/optionsIcon.svg' %}" alt="Options icon" class="options-icon">
-                </td>
-            </tr>
+            {% endfor %}
         </tbody>
     </table>
 
     <div class="pagination">
-        <button class="pagination-btn">1</button>
     </div>
 </main>
+{% endblock %}
+
+{% block below_js %}
+    <script src="{% static 'js/lastSurveys.js' %}"></script>
+    <script>
+        function openSurvey(surveyId) {
+            window.location.href = "{% url 'users:index' %}";
+        }
+
+        function toggleOptionsDropdown(container) {
+            var dropdown = container.querySelector('.options-dropdown');
+            if (dropdown.style.display === 'none' || dropdown.style.display === '') {
+                // Cierra todos los dropdowns abiertos.
+                document.querySelectorAll('.options-dropdown').forEach(function(dd) {
+                    dd.style.display = 'none';
+                });
+                dropdown.style.display = 'block';
+            } else {
+                dropdown.style.display = 'none';
+            }
+        }
+
+        document.addEventListener('click', function(event) {
+            var containers = document.querySelectorAll('.options-container');
+            containers.forEach(function(container) {
+                if (!container.contains(event.target)) {
+                    var dropdown = container.querySelector('.options-dropdown');
+                    if (dropdown) {
+                        dropdown.style.display = 'none';
+                    }
+                }
+            });
+        });
+    </script>
 {% endblock %}

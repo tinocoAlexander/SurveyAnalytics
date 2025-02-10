@@ -25,19 +25,16 @@
     color: #3c763d;
 }
 
-/* Error message */
 .django-messages .message.error {
     background-color: #f2dede;
     color: #a94442;
 }
 
-/* Info message */
 .django-messages .message.info {
     background-color: #d9edf7;
     color: #31708f;
 }
 
-/* Warning message */
 .django-messages .message.warning {
     background-color: #fcf8e3;
     color: #8a6d3b;

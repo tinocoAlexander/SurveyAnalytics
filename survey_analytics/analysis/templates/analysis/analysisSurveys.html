@@ -5,35 +5,56 @@
 {% endblock %}
 {% block content %}
 <main class="form-container">
-    <form class="survey-form">
-        <h1 class="form-title"><img src="{% static 'images/icons/addIcon.svg' %}" alt="Error while loading the image" class="icons"> Add a survey</h1>
-        <p class="form-description">
-            Here you are going to write the name of your survey and then you are going to upload your surveys answers in either a CSV or Excel format.
-        </p>
 
+    <form class="survey-form" method="post" enctype="multipart/form-data">
+
+        {% csrf_token %}
+        <h1 class="form-title">
+            <img src="{% static 'images/icons/addIcon.svg' %}" alt="Error loading the image" class="icons"> Add a survey
+        </h1>
+        <p class="form-description">
+            Here you are going to write the name of your survey and then you are going to upload your survey's answers in either CSV or Excel format.
+        </p>
+        {% if messages %}
+            <div class="messages">
+                <label for="survey-name" class="form-message">Attention!!!</label>
+                {% for message in messages %}
+                    <div class="message {{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
         <label for="survey-name" class="form-label">Name of the survey:</label>
-        <input type="text" id="survey-name" class="form-input" placeholder="Enter the survey name">
+        <input type="text" id="survey-name" name="survey_name" class="form-input" placeholder="Enter the survey name">
 
         <label for="upload-files" class="form-label">Upload files:</label>
-        <div class="file-dropzone" onclick="document.getElementById('upload-files').click()" ondrop="handleDrop(event)">
-            <input type="file" name="upload-files" id="upload-files" accept=".csv, .xls" multiple hidden>
-            <img src="{% static 'images/icons/uploadIcon.svg' %}" alt="Error while loading the image" class="icons upload-icon">
+        <div class="file-dropzone"
+             onclick="document.getElementById('upload-files').click()"
+             ondrop="handleDrop(event)"
+             ondragover="allowDrop(event)">
+            <input type="file" name="upload_files" id="upload-files" accept=".csv, .xls" multiple hidden>
+            <img src="{% static 'images/icons/uploadIcon.svg' %}" alt="Error loading the image" class="icons upload-icon">
             <p>Drag & drop your files here or <span class="file-choose">choose files</span></p>
             <small>CSV or Excel files only</small>
         </div>
+
         <label for="uploaded-files" class="form-label">Uploaded files:</label>
-        <div class="uploaded-files">
-            <div class="file-item">
-                <span> <img src="{% static 'images/icons/documentIcon.svg' %}" alt="Error while loading the image" class="icons"> Survey.csv</span>
-                <small>10.4 mb</small>
-                <button class="remove-file-btn">X</button>
-            </div>
+        <div class="uploaded-files" id="uploaded-files">
         </div>
 
         <div class="form-actions">
-            <button type="button" class="btn-cancel">Cancel</button>
+            <button type="button" class="btn-cancel" onclick="cancelUpload()">Cancel</button>
             <button type="submit" class="btn-confirm">Confirm</button>
         </div>
     </form>
 </main>
+{% endblock %}
+
+{% block below_js %}
+    <script>
+        const documentIconUrl = "{% static 'images/icons/documentIcon.svg' %}";
+        const cancelUrl = "{% url 'users:index' %}";
+    </script>
+    <script src="{% static 'js/uploadFiles.js' %}"></script>
 {% endblock %}

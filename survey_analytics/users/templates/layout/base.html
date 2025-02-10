@@ -11,62 +11,6 @@
     <script src="{% static 'js/sidebar.js' %}" defer></script>
     {% block extra_css %}{% endblock %}
     {% block extra_js %}{% endblock %}
-    <style>
-        /* Modal styling */
-        .modal {
-            display: none; /* Hidden by default */
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 20%;
-            height: 20%;
-        }
-        .modal-content {
-            background-color: #fff;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 300px;
-            border-radius: 5px;
-            text-align: center;
-            position: relative;
-        }
-        .modal-content ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        .modal-content li {
-            margin: 10px 0;
-        }
-        .modal-content a {
-            text-decoration: none;
-            color: #333;
-            font-weight: bold;
-        }
-        .modal-content .close {
-            color: #aaa;
-            position: absolute;
-            right: 10px;
-            top: 5px;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        /* Header user info styling */
-        .user-info-modal-trigger {
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-        }
-        .user-info-modal-trigger img {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            margin-right: 8px;
-        }
-    </style>
 </head>
 <body>
 
@@ -92,10 +36,15 @@
             </ul>
 
             {% if user.is_authenticated %}
-                <!-- Display user icon and name -->
                 <div id="user-info" class="user-info-modal-trigger">
-                    <img src="{% static 'images/icons/userIcon.svg' %}" alt="User Icon">
+                    <img src="{% static 'images/icons/userIcon.svg' %}" alt="User Icon" width="32" height="32">
                     <span class="user-name">Hello, {{ user.username }}!</span>
+                    <div id="user-modal">
+                        <ul>
+                            <li><a href="{% url 'users:index' %}">Change Password</a></li>
+                            <li><a href="{% url 'users:logout' %}">Log out</a></li>
+                        </ul>
+                    </div>
                 </div>
             {% else %}
                 <a href="{% url 'users:login' %}" class="nav-button">Log in</a>
@@ -108,6 +57,7 @@
         <h2 class="sidebar-title">Menú de opciones</h2>
         <ul>
             {% if user.is_authenticated %}
+                <li class="user-name">Hello, {{ user.username }}!</li>
                 <li><a href="{% url 'users:index' %}">Home</a></li>
                 <li><a href="{% url 'analysis:analysisSurveys' %}">New Surveys</a></li>
                 <li><a href="{% url 'analysis:lastSurveys' %}">Last Surveys</a></li>
@@ -115,7 +65,8 @@
                 <li><a href="{% url 'users:index' %}">Home</a></li>
             {% endif %}
             {% if user.is_authenticated %}
-                <li><a href="{% url 'users:logout' %}" class="sidebar-login">Log out</a></li>
+                <li><a href="{% url 'users:index' %}">Change Password</a></li>
+                <li><a href="{% url 'users:logout' %}">Log out</a></li>
             {% else %}
                 <li><a href="{% url 'users:login' %}" class="sidebar-login">Log in</a></li>
             {% endif %}
@@ -126,42 +77,35 @@
         {% block content %}{% endblock %}
     </main>
 
-    <!-- User Options Modal -->
-    <div id="user-modal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <ul>
-                <li><a href="{% url 'users:logout' %}">Log out</a></li>
-                <li><a href="{% url 'users:index' %}">Change Password</a></li>
-            </ul>
-        </div>
-    </div>
-
     <script>
-        // Modal functionality
+        function toggleMenu() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             const userInfo = document.getElementById('user-info');
             const userModal = document.getElementById('user-modal');
-            const closeModal = userModal.querySelector('.close');
 
             if (userInfo) {
-                userInfo.addEventListener('click', function() {
-                    userModal.style.display = 'block';
+                userInfo.addEventListener('click', function(event) {
+                    event.stopPropagation();
+                    if (userModal.style.display === 'block') {
+                        userModal.style.display = 'none';
+                    } else {
+                        userModal.style.display = 'block';
+                    }
                 });
             }
 
-            closeModal.addEventListener('click', function() {
-                userModal.style.display = 'none';
-            });
-
             window.addEventListener('click', function(event) {
-                if (event.target == userModal) {
+                if (!userInfo.contains(event.target)) {
                     userModal.style.display = 'none';
                 }
             });
         });
     </script>
 
+    {% block below_js %}{% endblock %}
 </body>
 </html>
-{% block below_js %}{% endblock %}

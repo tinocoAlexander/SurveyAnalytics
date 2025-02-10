@@ -222,7 +222,6 @@ body {
     background-color: #e2d8e4;
 }
 
-/* Large tablets and smaller screens (max-width: 1024px) */
 @media screen and (max-width: 64rem) {
     .recent-surveys {
         flex-direction: column;
@@ -245,7 +244,6 @@ body {
     }
 }
 
-/* Small tablets and phones (max-width: 768px) */
 @media screen and (max-width: 48rem) {
     body {
         margin-left: 1.25rem;
@@ -270,7 +268,6 @@ body {
     }
 }
 
-/* Mobile phones (max-width: 480px) */
 @media screen and (max-width: 30rem) {
     .title {
         font-size: 2rem;

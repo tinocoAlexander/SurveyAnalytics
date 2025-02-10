@@ -17,7 +17,6 @@ document.addEventListener("DOMContentLoaded", function() {
         if (rowsToDisplay.length > 0) {
             rowsToDisplay.forEach(row => tableBody.appendChild(row));
         } else {
-            // If no rows match, display a "no surveys found" row.
             const noRow = document.createElement('tr');
             const noDataTd = document.createElement('td');
             noDataTd.setAttribute('colspan', '4');
@@ -30,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function updatePagination() {
-        paginationContainer.innerHTML = ''; // Clear existing buttons
+        paginationContainer.innerHTML = '';
         const totalPages = Math.ceil(filteredRows.length / rowsPerPage);
         for (let i = 1; i <= totalPages; i++) {
             const btn = document.createElement('button');

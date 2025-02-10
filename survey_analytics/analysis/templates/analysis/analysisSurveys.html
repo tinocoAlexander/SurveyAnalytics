@@ -6,8 +6,7 @@
 {% block content %}
 <main class="form-container">
 
-    <form class="survey-form" method="post" enctype="multipart/form-data">
-
+    <form class="survey-form" method="post" enctype="multipart/form-data" action="{% url 'analysis:analysisSurveys' %}">
         {% csrf_token %}
         <h1 class="form-title">
             <img src="{% static 'images/icons/addIcon.svg' %}" alt="Error loading the image" class="icons"> Add a survey
@@ -33,7 +32,7 @@
              onclick="document.getElementById('upload-files').click()"
              ondrop="handleDrop(event)"
              ondragover="allowDrop(event)">
-            <input type="file" name="upload_files" id="upload-files" accept=".csv, .xls" multiple hidden>
+            <input type="file" name="upload_files" id="upload-files" accept=".csv, .xls, .xlsx" multiple hidden>
             <img src="{% static 'images/icons/uploadIcon.svg' %}" alt="Error loading the image" class="icons upload-icon">
             <p>Drag & drop your files here or <span class="file-choose">choose files</span></p>
             <small>CSV or Excel files only</small>
@@ -54,7 +53,6 @@
 {% block below_js %}
     <script>
         const documentIconUrl = "{% static 'images/icons/documentIcon.svg' %}";
-        const cancelUrl = "{% url 'users:index' %}";
     </script>
     <script src="{% static 'js/uploadFiles.js' %}"></script>
 {% endblock %}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Survey Analysis: {{ survey.name }}</title>
+    <style>
+        body {
+            font-family: DejaVu Sans, sans-serif;
+            padding: 20px;
+        }
+        h1, h2, h3 {
+            text-align: center;
+        }
+        .graphs-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .graph-item {
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 300px;
+        }
+        .graph-item img {
+            width: 100%;
+            height: auto;
+        }
+        .insights {
+            margin-top: 30px;
+        }
+        .insights ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Survey Analysis: {{ survey.name }}</h1>
+
+    <div class="graphs-grid">
+        {% for graph in graphs %}
+            <div class="graph-item">
+                <h3>{{ graph.column }}</h3>
+                <img src="data:image/png;base64,{{ graph.image }}" alt="Graph for {{ graph.column }}">
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="insights">
+        <h2>Key Insights</h2>
+        <ul>
+            {% for insight in insights %}
+                <li>{{ insight }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

@@ -77,6 +77,7 @@ pip install -r requirements.txt
     EMAIL_HOST_PASSWORD=your_password
     DEFAULT_FROM_EMAIL=your_email@your_email.com
 These variables are managed using python-decouple in your settings.py.
+
 5. **Apply Migrations and Create a Superuser:**
    ```bash
     python manage.py migrate

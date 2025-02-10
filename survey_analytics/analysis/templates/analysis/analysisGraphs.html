@@ -10,6 +10,10 @@
     <h1 class="title">Survey Analysis: {{ survey.name }}</h1>
     <p class="subtitle">Visualization of survey responses</p>
 
+    <div class="insights-pdf">
+        <a href="{% url 'analysis:download_pdf' survey.id %}" class="btn-download"><img src="{% static 'images/pdfIcon.png' %}" alt="Error while loading the image" class="icons"> </a>
+    </div>
+
     <div class="graphs-grid">
         {% for graph in graphs %}
             <div class="graph-item">
@@ -27,6 +31,7 @@
             {% endfor %}
         </ul>
     </div>
+
 
 </main>
 {% endblock %}

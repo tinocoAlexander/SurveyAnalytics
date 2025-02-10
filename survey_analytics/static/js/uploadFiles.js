@@ -110,16 +110,23 @@ surveyForm.addEventListener('submit', function(event) {
     fetch(surveyForm.action || window.location.href, {
         method: 'POST',
         body: formData,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        }
     })
     .then(response => {
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
-        return response.text();
+        return response.json();
     })
     .then(data => {
         console.log('Success:', data);
-        window.location.href = cancelUrl;
+        if (data.redirect_url) {
+            window.location.href = data.redirect_url;
+        } else {
+            window.location.reload();
+        }
     })
     .catch(error => {
         console.error('Error:', error);

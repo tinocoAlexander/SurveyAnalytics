@@ -1,0 +1,22 @@
+{% extends '../layout/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/analysisGraphs.css' %}">
+{% endblock %}
+
+{% block content %}
+<main class="graphs-container">
+    <h1 class="title">Survey Analysis: {{ survey.name }}</h1>
+    <p class="subtitle">Visualization of survey responses</p>
+
+    <div class="graphs-grid">
+        {% for graph in graphs %}
+            <div class="graph-item">
+                <h3>{{ graph.column }}</h3>
+                <img src="data:image/png;base64,{{ graph.image }}" alt="Graph for {{ graph.column }}">
+            </div>
+        {% endfor %}
+    </div>
+</main>
+{% endblock %}

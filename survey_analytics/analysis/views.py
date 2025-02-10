@@ -1,8 +1,16 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.files.storage import FileSystemStorage
 from django.contrib import messages
 from .models import Survey, SurveyFile
+import io
+import base64
+import pandas as pd
+import matplotlib.pyplot as plt
+from django.conf import settings
+from django.urls import reverse_lazy
+from django.http import JsonResponse
+
 # Create your views here.
 @login_required(login_url='errors:error_401')
 def lastSurveys(request):
@@ -39,6 +47,7 @@ def resultSurveys(request):
     title = "Results Surveys"
     return render(request, 'analysis/resultSurveys.html', {'title': title})
 
+
 @login_required(login_url='errors:error_401')
 def analysisSurveys(request):
     title = "Add Surveys"
@@ -56,9 +65,68 @@ def analysisSurveys(request):
         for file in uploaded_files:
             ext = file.name.split('.')[-1].lower()
             if ext not in ['csv', 'xlsx', 'xls']:
-                messages.error(request, 'The file {file.name} has an unsupported extension ')
+                messages.error(request, f'The file {file.name} has an unsupported extension')
                 continue
             SurveyFile.objects.create(survey=survey, file=file)
         messages.success(request, 'Survey added successfully')
-        return redirect('users:index') # Este lo tengo que cambiar cuando tenga la vista de las graficas
+
+        redirect_url = reverse_lazy('analysis:analysis_graphs', kwargs={'survey_id': survey.id})
+
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            return JsonResponse({'redirect_url': str(redirect_url)})
+        else:
+            return redirect(redirect_url)
     return render(request, 'analysis/analysisSurveys.html', {'title': title})
+
+
+@login_required
+def analysisGraphs(request, survey_id):
+    survey = get_object_or_404(Survey, id=survey_id)
+    survey_file = survey.files.first()
+    if not survey_file:
+        messages.error(request, "No file associated with this survey.")
+        return redirect('analysis:analysisSurveys')
+
+    file_path = survey_file.file.path
+    ext = survey_file.file.name.split('.')[-1].lower()
+
+    try:
+        if ext == 'csv':
+            df = pd.read_csv(file_path)
+        elif ext in ['xls', 'xlsx']:
+            df = pd.read_excel(file_path)
+        else:
+            messages.error(request, "Unsupported file extension.")
+            return redirect('analysis:analysisSurveys')
+    except Exception as e:
+        messages.error(request, f"Error reading file: {e}")
+        df = pd.DataFrame()
+
+    graphs = []
+    if not df.empty:
+        for col in df.columns:
+            plt.figure(figsize=(6, 4))
+            if df[col].dtype == 'object' or df[col].nunique() < 10:
+                counts = df[col].value_counts()
+                counts.plot(kind='bar', color='#4f46e5')
+            else:
+                df[col].plot(kind='hist', color='#4f46e5', bins=10)
+            plt.title(col, fontsize=14, fontfamily='DejaVu Sans')
+            plt.xlabel("Response", fontsize=12, fontfamily='DejaVu Sans')
+            plt.ylabel("Frequency", fontsize=12, fontfamily='DejaVu Sans')
+            plt.tight_layout()
+
+            buf = io.BytesIO()
+            plt.savefig(buf, format='png')
+            buf.seek(0)
+            image_base64 = base64.b64encode(buf.read()).decode('utf-8')
+            graphs.append({'column': col, 'image': image_base64})
+            plt.close()
+    else:
+        messages.error(request, "No data available to generate graphs.")
+
+    context = {
+        'survey': survey,
+        'graphs': graphs,
+    }
+    return render(request, 'analysis/analysisGraphs.html', context)
